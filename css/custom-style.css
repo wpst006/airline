@@ -9,8 +9,17 @@ root {
     -moz-box-sizing: content-box !important;
 }
 
+.pad_left1{
+    padding-left: 20px;
+    padding-top: 20px;
+}
+
+.col2 {
+    width: 630px;
+}
+
 form.form-horizontal{    
-    padding-top:20px;
+    /*padding-top:20px;*/
 }
 
 .chosen-container-multi .chosen-choices li.search-field input[type="text"]{

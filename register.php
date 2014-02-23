@@ -1,4 +1,4 @@
-<?php include('includes/header.php'); ?>
+<?php include('includes/includefiles.php'); ?>
 
 <?php
 if (isset($_POST['submitted'])) {
@@ -25,19 +25,14 @@ if (isset($_POST['submitted'])) {
             "VALUES('$member_id','$username','$email','$password','member')";
 
     mysql_query($userInsert_sql) or die(mysql_error());
-    //*********************************************************************					
-    $message = "Member is successfully saved with MemberID : " . $member_id;
+    //*********************************************************************
+    messageHelper::setMessage("You have successfully registered. Please log in to continue.",MESSAGE_TYPE_SUCCESS);
+    header("Location:login.php");    
+    exit();
 }
 ?>
 
-<?php
-if (isset($message)) {
-    if ($error)
-        echo "<div class='error-message'>$message</div>";
-    else
-        echo "<div class='success-message'>$message</div>";
-}
-?> 
+<?php include('includes/header.php'); ?>
 
 <div class="row">
     <div class="col-md-12">

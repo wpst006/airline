@@ -1,17 +1,3 @@
-<?php
-session_start();
-
-require_once("settings.php");
-require_once("includes/db.php");
-require_once("includes/autoID.php");
-require_once("includes/loginFunction.php");
-require_once("includes/shoppingcartFunction.php");
-require_once("includes/messageHelper.php");
-
-$objLogIn = new logIn;
-$isLoggedIn = $objLogIn->isLoggedIn();
-?>   
-
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -20,17 +6,17 @@ $isLoggedIn = $objLogIn->isLoggedIn();
         <link rel="stylesheet" href="css/reset.css" type="text/css" media="all">
         <link rel="stylesheet" href="css/layout.css" type="text/css" media="all">
         <link rel="stylesheet" href="css/style.css" type="text/css" media="all">
-        <script type="text/javascript" src="js/jquery-1.4.2.js" ></script>
+<!--        <script type="text/javascript" src="js/jquery-1.4.2.js" ></script>
         <script type="text/javascript" src="js/cufon-yui.js"></script>
         <script type="text/javascript" src="js/cufon-replace.js"></script>
         <script type="text/javascript" src="js/Myriad_Pro_italic_600.font.js"></script>
         <script type="text/javascript" src="js/Myriad_Pro_italic_400.font.js"></script>
-        <script type="text/javascript" src="js/Myriad_Pro_400.font.js"></script>
+        <script type="text/javascript" src="js/Myriad_Pro_400.font.js"></script>-->
         <!--[if lt IE 9]>
         <script type="text/javascript" src="js/ie6_script_other.js"></script>
         <script type="text/javascript" src="js/html5.js"></script>
         <![endif]-->
-                <link href="css/chosen.min.css" rel="stylesheet" type="text/css" />
+        <link href="css/chosen.min.css" rel="stylesheet" type="text/css" />
         <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css" />
         <link href="css/bootstrap-theme.min.css" rel="stylesheet" type="text/css" />
         <link href="css/custom-style.css" rel="stylesheet" type="text/css" />
@@ -46,19 +32,14 @@ $isLoggedIn = $objLogIn->isLoggedIn();
                         </h1>
                         <div class="right">
                             <nav>
-                                <ul id="top_nav">
-                                    <li><a href="#"><img src="images/img1.gif" alt=""></a></li>
-                                    <li><a href="#"><img src="images/img2.gif" alt=""></a></li>
-                                    <li class="bg_none"><a href="#"><img src="images/img3.gif" alt=""></a></li>
-                                </ul>
-                            </nav>
-                            <nav>
                                 <ul id="menu">
-                                    <li id="menu_active"><a href="index.html">Home</a></li>
-                                    <li><a href="aircrafts.html">Our Aircraft</a></li>
-                                    <li><a href="safety.html">Safety</a></li>
-                                    <li><a href="charters.html">Charters</a></li>
-                                    <li><a href="contacts.html">Contacts</a></li>
+                                    <li id="menu_active"><a href="index.php">Home</a></li>
+                                    <?php if ($isLoggedIn == false) { ?>
+                                        <li><a href="login.php">Log In</a></li>
+                                    <?php } else { ?>
+                                        <li><a href="logout.php">Log Out</a></li>
+                                    <?php } ?>
+                                    <li><a href="register.php">Register</a></li>                                    
                                 </ul>
                             </nav>
                         </div>
@@ -138,8 +119,16 @@ $isLoggedIn = $objLogIn->isLoggedIn();
                     </div>
                 </article>
                 <article class="col2 pad_left1">
-                    
-                    <!-- Site JavaScript -->
+
+                <!-- Site JavaScript -->
                 <script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
                 <script type="text/javascript" src="js/jquery.validate.min.js"></script>
-                
+
+                <?php
+                $message = messageHelper::getMessage();
+
+                if (isset($message)) {
+                    echo $message;
+                    messageHelper::clearMessage();
+                }
+                ?>
