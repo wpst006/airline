@@ -12,7 +12,7 @@
         </footer>
     </div>
 </div>
-<script type="text/javascript"> Cufon.now(); </script>
+<!--<script type="text/javascript"> Cufon.now(); </script>-->
 <!-- END PAGE SOURCE -->
 </body>
 </html>

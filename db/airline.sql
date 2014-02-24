@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Feb 22, 2014 at 11:11 AM
+-- Generation Time: Feb 25, 2014 at 12:12 AM
 -- Server version: 5.5.24-log
 -- PHP Version: 5.3.13
 
@@ -23,24 +23,31 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `members`
+-- Table structure for table `customers`
 --
 
-CREATE TABLE IF NOT EXISTS `members` (
-  `member_id` varchar(15) NOT NULL,
+CREATE TABLE IF NOT EXISTS `customers` (
+  `customer_id` varchar(15) NOT NULL,
   `firstname` varchar(30) NOT NULL,
   `lastname` varchar(30) NOT NULL,
-  PRIMARY KEY (`member_id`)
+  `gender` char(1) NOT NULL,
+  `DOB` datetime NOT NULL,
+  `nrc_no` varchar(30) NOT NULL,
+  `phone_no` varchar(30) NOT NULL,
+  `street` varchar(255) NOT NULL,
+  `city` varchar(255) NOT NULL,
+  `country` varchar(255) NOT NULL,
+  `post_code` varchar(10) NOT NULL,
+  PRIMARY KEY (`customer_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `members`
+-- Dumping data for table `customers`
 --
 
-INSERT INTO `members` (`member_id`, `firstname`, `lastname`) VALUES
-('MEM000001', 'a', 'a'),
-('MEM000002', 'a', 'a'),
-('MEM000003', 'b', 'b');
+INSERT INTO `customers` (`customer_id`, `firstname`, `lastname`, `gender`, `DOB`, `nrc_no`, `phone_no`, `street`, `city`, `country`, `post_code`) VALUES
+('CUS000001', 'admin', 'admin', '', '0000-00-00 00:00:00', '', '', '', '', '', ''),
+('CUS000002', 'a', 'a', 'M', '1990-01-02 00:00:00', 'a', 'a', 'a', 'a', 'a', 'a');
 
 -- --------------------------------------------------------
 
@@ -62,9 +69,8 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`user_id`, `username`, `email`, `password`, `role`) VALUES
-('MEM000001', 'admin', 'admin@gmail.com', 'admin', 'admin'),
-('MEM000002', 'a', 'a', 'a', 'member'),
-('MEM000003', 'b', 'b@gmail.com', 'b', 'member');
+('CUS000001', 'admin', 'admin@gmail.com', 'admin', 'admin'),
+('CUS000002', 'a', 'a@gmail.com', 'a', 'member');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

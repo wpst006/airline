@@ -5,29 +5,37 @@ if (isset($_POST['submitted'])) {
     $error = false;
     //*********************************************************************
     //Filling Data
-    $member_id = autoID::getAutoID('members', 'member_id', 'MEM', 6);
+    $customer_id = autoID::getAutoID('customers', 'customer_id', 'CUS', 6);
     $username = $_POST['username'];
     $password = $_POST['password'];
     $email = $_POST['email'];
     $firstname = $_POST['firstname'];
     $lastname = $_POST['lastname'];
+    $gender = $_POST['gender'];
+    $DOB=$_POST['DOB'];
+    $nrc_no = $_POST['nrc_no'];
+    $phone_no = $_POST['phone_no'];
+    $street = $_POST['street'];
+    $city = $_POST['city'];
+    $country = $_POST['country'];
+    $post_code = $_POST['post_code'];
     //*********************************************************************
     //"members" Table Insert
-    $paymentInsert_sql = "INSERT INTO " .
-            "members(member_id,firstname,lastname) " .
-            "VALUES('$member_id','$firstname','$lastname')";
+    $memberInsert_sql = "INSERT INTO " .
+            "customers(customer_id,firstname,lastname,gender,DOB,nrc_no,phone_no,street,city,country,post_code) " .
+            "VALUES('$customer_id','$firstname','$lastname','$gender','$DOB','$nrc_no','$phone_no','$street','$city','$country','$post_code')";
 
-    mysql_query($paymentInsert_sql) or die(mysql_error());
+    mysql_query($memberInsert_sql) or die(mysql_error());
     //*********************************************************************
     //User Table Insert
     $userInsert_sql = "INSERT INTO " .
             "`users`(user_id,username,email,password,role) " .
-            "VALUES('$member_id','$username','$email','$password','member')";
+            "VALUES('$customer_id','$username','$email','$password','member')";
 
     mysql_query($userInsert_sql) or die(mysql_error());
     //*********************************************************************
-    messageHelper::setMessage("You have successfully registered. Please log in to continue.",MESSAGE_TYPE_SUCCESS);
-    header("Location:login.php");    
+    messageHelper::setMessage("You have successfully registered. Please log in to continue.", MESSAGE_TYPE_SUCCESS);
+    header("Location:login.php");
     exit();
 }
 ?>
@@ -81,6 +89,84 @@ if (isset($_POST['submitted'])) {
             </div>
 
             <div class="form-group">
+                <div class="col-sm-3 control-label">Gender :</div>
+                <div class="col-sm-9">
+                    <div class="radio-inline">
+                        <label>
+                            <input type="radio" name="gender" id="optMale" value="M" checked>
+                            Male
+                        </label>
+                    </div>
+                    <div class="radio-inline">
+                        <label>
+                            <input type="radio" name="gender" id="optFemale" value="F">
+                            Female
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-3 control-label">DOB :</div>
+                <div class="col-sm-9">
+                    <div class='input-group date' id='datetimepicker1'>
+                        <input type='text' id="DOB" name="DOB" class="form-control" data-format="YYYY-MM-DD" value="<?php echo date('Y-m-d', time()); ?>"/>
+                        <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <script type="text/javascript">
+                $(function () {
+                    $('#datetimepicker1').datetimepicker({
+                        pickTime: false
+                    });
+                });
+            </script>
+
+            <div class="form-group">
+                <div class="col-sm-3 control-label">NRC No :</div>
+                <div class="col-sm-9">
+                    <input type="text" id="nrc_no" name="nrc_no" class="form-control" value="" maxlength="30"/>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-3 control-label">Phone No :</div>
+                <div class="col-sm-9">
+                    <input type="text" id="phone_no" name="phone_no" class="form-control" value="" maxlength="30"/>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-3 control-label">Street :</div>
+                <div class="col-sm-9">
+                    <input type="text" id="street" name="street" class="form-control" value="" maxlength="30"/>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-3 control-label">City :</div>
+                <div class="col-sm-9">
+                    <input type="text" id="city" name="city" class="form-control" value="" maxlength="30"/>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-3 control-label">Country :</div>
+                <div class="col-sm-9">
+                    <input type="text" id="country" name="country" class="form-control" value="" maxlength="30"/>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-3 control-label">Post Code :</div>
+                <div class="col-sm-9">
+                    <input type="text" id="post_code" name="post_code" class="form-control" value="" maxlength="30"/>
+                </div>
+            </div>
+
+            <div class="form-group">
                 <div class="col-sm-offset-3 col-sm-9">
                     <button type="submit" name="submitted" class="btn btn-default btn-primary">Save</button>
                     <button type="reset" name="reset"  class="btn btn-default">Reset</button>
@@ -119,6 +205,30 @@ if (isset($_POST['submitted'])) {
                 {
                 required: true
             },
+            nrc_no: 
+                {
+                required: true
+            },
+            phone_no: 
+                {
+                required: true
+            },
+            street: 
+                {
+                required: true
+            },
+            city: 
+                {
+                required: true
+            },
+            country: 
+                {
+                required: true
+            },
+            post_code: 
+                {
+                required: true
+            },
         },
         //set messages to appear inline
         messages: 
@@ -136,7 +246,13 @@ if (isset($_POST['submitted'])) {
                 email: "Please enter a valid E-Mail address."
             },
             firstname: "Please enter first name.",
-            lastname: "Please enter last name.",            
+            lastname: "Please enter last name.",  
+            nrc_no: "Please enter NRC No.",
+            phone_no: "Please enter phone no.",  
+            street: "Please enter street.",
+            city: "Please enter city.",  
+            country: "Please enter country.",
+            post_code: "Please enter post Code.",  
         }
     });
 </script>

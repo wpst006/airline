@@ -20,6 +20,9 @@
         <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css" />
         <link href="css/bootstrap-theme.min.css" rel="stylesheet" type="text/css" />
         <link href="css/custom-style.css" rel="stylesheet" type="text/css" />
+        <link href="css/bootstrap-datetimepicker.min.css" rel="stylesheet" type="text/css" />
+        <link rel="stylesheet" type="text/css" media="screen" href="css/bootstrap-datetimepicker.min.css" />
+        
     </head>
     <body id="page1">
         <!-- START PAGE SOURCE -->
@@ -120,15 +123,20 @@
                 </article>
                 <article class="col2 pad_left1">
 
-                <!-- Site JavaScript -->
-                <script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
-                <script type="text/javascript" src="js/jquery.validate.min.js"></script>
+                    <!-- Site JavaScript -->
+                    <script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
+                    <!--<script type="text/javascript" src="js/jquery.js"></script>-->
+                    <script type="text/javascript" src="js/jquery.validate.min.js"></script>
+                    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+                    
+                    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+                    <script type="text/javascript" src="js/moment-2.4.0.js"></script>
+                    <script type="text/javascript" src="js/bootstrap-datetimepicker.js"></script>
+                    <?php
+                    $message = messageHelper::getMessage();
 
-                <?php
-                $message = messageHelper::getMessage();
-
-                if (isset($message)) {
-                    echo $message;
-                    messageHelper::clearMessage();
-                }
-                ?>
+                    if (isset($message)) {
+                        echo $message;
+                        messageHelper::clearMessage();
+                    }
+                    ?>
