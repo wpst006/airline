@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Feb 25, 2014 at 12:12 AM
+-- Generation Time: Feb 25, 2014 at 01:28 AM
 -- Server version: 5.5.24-log
 -- PHP Version: 5.3.13
 
@@ -47,7 +47,80 @@ CREATE TABLE IF NOT EXISTS `customers` (
 
 INSERT INTO `customers` (`customer_id`, `firstname`, `lastname`, `gender`, `DOB`, `nrc_no`, `phone_no`, `street`, `city`, `country`, `post_code`) VALUES
 ('CUS000001', 'admin', 'admin', '', '0000-00-00 00:00:00', '', '', '', '', '', ''),
-('CUS000002', 'a', 'a', 'M', '1990-01-02 00:00:00', 'a', 'a', 'a', 'a', 'a', 'a');
+('CUS000002', 'a', 'a', 'M', '1990-01-02 00:00:00', 'a', 'a', 'a', 'a', 'a', 'a'),
+('CUS000003', '', '', '', '0000-00-00 00:00:00', '', '', '', '', '', ''),
+('CUS000004', '', '', '', '0000-00-00 00:00:00', '', '', '', '', '', ''),
+('CUS000005', '', '', '', '0000-00-00 00:00:00', '', '', '', '', '', '');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `flights`
+--
+
+CREATE TABLE IF NOT EXISTS `flights` (
+  `flight_id` varchar(15) NOT NULL,
+  `name` varchar(50) NOT NULL,
+  `remark` varchar(255) NOT NULL,
+  PRIMARY KEY (`flight_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `flights`
+--
+
+INSERT INTO `flights` (`flight_id`, `name`, `remark`) VALUES
+('FLH_000001', 'Air Bagan', ''),
+('FLH_000002', 'Air KBZ', '');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `routes`
+--
+
+CREATE TABLE IF NOT EXISTS `routes` (
+  `route_id` varchar(15) NOT NULL,
+  `title` varchar(50) NOT NULL,
+  `duration` varchar(30) NOT NULL,
+  `remark` varchar(255) NOT NULL,
+  PRIMARY KEY (`route_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `routes`
+--
+
+INSERT INTO `routes` (`route_id`, `title`, `duration`, `remark`) VALUES
+('ROU_000001', 'Yangon - Mandalay', '1:00 hr', ''),
+('ROU_000002', 'Yangon - Nay Pyi Daw', '0:30 hr', '');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `schedules`
+--
+
+CREATE TABLE IF NOT EXISTS `schedules` (
+  `schedule_id` varchar(15) NOT NULL,
+  `flight_id` varchar(15) NOT NULL,
+  `route_id` varchar(15) NOT NULL,
+  `departure_datetime` datetime NOT NULL,
+  `arrival_datetime` datetime NOT NULL,
+  `departure_airport` varchar(50) NOT NULL,
+  `arrival_airport` varchar(50) NOT NULL,
+  `remark` varchar(255) NOT NULL,
+  PRIMARY KEY (`schedule_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `schedules`
+--
+
+INSERT INTO `schedules` (`schedule_id`, `flight_id`, `route_id`, `departure_datetime`, `arrival_datetime`, `departure_airport`, `arrival_airport`, `remark`) VALUES
+('SCH000001', 'FLH_000001', 'ROU_000001', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'a', 'a', 'a'),
+('SCH000002', 'FLH_000001', 'ROU_000001', '2014-02-25 01:28:00', '2014-02-25 01:28:00', 'a', 'a', 'a'),
+('SCH000003', 'FLH_000001', 'ROU_000001', '2014-02-25 01:28:00', '2014-03-01 01:28:00', 'a', 'a', 'a');
 
 -- --------------------------------------------------------
 
@@ -70,7 +143,10 @@ CREATE TABLE IF NOT EXISTS `users` (
 
 INSERT INTO `users` (`user_id`, `username`, `email`, `password`, `role`) VALUES
 ('CUS000001', 'admin', 'admin@gmail.com', 'admin', 'admin'),
-('CUS000002', 'a', 'a@gmail.com', 'a', 'member');
+('CUS000002', 'a', 'a@gmail.com', 'a', 'member'),
+('CUS000003', '', '', '', 'member'),
+('CUS000004', '', '', '', 'member'),
+('CUS000005', '', '', '', 'member');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

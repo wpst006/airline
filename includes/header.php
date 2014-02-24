@@ -42,7 +42,8 @@
                                     <?php } else { ?>
                                         <li><a href="logout.php">Log Out</a></li>
                                     <?php } ?>
-                                    <li><a href="register.php">Register</a></li>                                    
+                                    <li><a href="register.php">Register</a></li>
+                                    <li><a href="schedule.php">Schedule</a></li>
                                 </ul>
                             </nav>
                         </div>
@@ -127,11 +128,13 @@
                     <script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
                     <!--<script type="text/javascript" src="js/jquery.js"></script>-->
                     <script type="text/javascript" src="js/jquery.validate.min.js"></script>
-                    <script type="text/javascript" src="js/bootstrap.min.js"></script>
                     
                     <script type="text/javascript" src="js/bootstrap.min.js"></script>
                     <script type="text/javascript" src="js/moment-2.4.0.js"></script>
                     <script type="text/javascript" src="js/bootstrap-datetimepicker.js"></script>
+                    
+                    <script src="js/chosen/chosen.jquery.min.js" type="text/javascript"></script>                                
+                    <script src="js/chosen/chosen.proto.min.js" type="text/javascript"></script>
                     <?php
                     $message = messageHelper::getMessage();
 
