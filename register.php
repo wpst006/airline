@@ -5,7 +5,7 @@ if (isset($_POST['submitted'])) {
     $error = false;
     //*********************************************************************
     //Filling Data
-    $schedule_id = autoID::getAutoID('customers', 'customer_id', 'CUS', 6);
+    $seat_id = autoID::getAutoID('customers', 'customer_id', 'CUS', 6);
     $username = $_POST['username'];
     $password = $_POST['password'];
     $email = $_POST['email'];
@@ -21,16 +21,16 @@ if (isset($_POST['submitted'])) {
     $post_code = $_POST['post_code'];
     //*********************************************************************
     //"members" Table Insert
-    $memberInsert_sql = "INSERT INTO " .
+    $seatInsert_sql = "INSERT INTO " .
             "customers(customer_id,firstname,lastname,gender,DOB,nrc_no,phone_no,street,city,country,post_code) " .
-            "VALUES('$schedule_id','$firstname','$lastname','$gender','$DOB','$nrc_no','$phone_no','$street','$city','$country','$post_code')";
+            "VALUES('$seat_id','$firstname','$lastname','$gender','$DOB','$nrc_no','$phone_no','$street','$city','$country','$post_code')";
 
-    mysql_query($memberInsert_sql) or die(mysql_error());
+    mysql_query($seatInsert_sql) or die(mysql_error());
     //*********************************************************************
     //User Table Insert
     $userInsert_sql = "INSERT INTO " .
             "`users`(user_id,username,email,password,role) " .
-            "VALUES('$schedule_id','$username','$email','$password','member')";
+            "VALUES('$seat_id','$username','$email','$password','member')";
 
     mysql_query($userInsert_sql) or die(mysql_error());
     //*********************************************************************

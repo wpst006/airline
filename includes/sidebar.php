@@ -1,41 +1,62 @@
-<div id="templatemo_sidebar">
-
-           <div id="news_section">
-                
-                <h2>Blog Posts</h2>
-   
-                <div class="news_box">
-                    <a href="#">Nam et tellus libero</a>
-                  <p> Cras purus libero, dapibus nec rutrum in, dapibus nec risus. Ut interdum mi sit amet magna feugiat auctor.</p>
-                </div>
-                
-                <div class="news_box">
-                    <a href="#">Lorem ipsum dolor sit amet</a>
-                  <p>Maecenas tellus erat, dictum vel semper a, dapibus ac elit. Nunc rutrum pretium porta.</p>
-                </div>
-                
-                <div class="news_box">
-                    <a href="#">Nunc porttitor feugiat elit</a>
-                    <p>Sed eleifend odio eget massa venenatis elementum. Nunc porttitor feugiat elit, ac tristique turpis condimentum in.</p>
-                </div>
-                
-                <div class="cleaner"></div>  
-                   
+<article class="col1">
+    <div class="pad_1">
+        <h2>Your Flight Planner</h2>
+        <form id="form_1" action="#" method="post">
+            <div class="wrapper pad_bot1">
+                <div class="radio marg_right1">
+                    <input type="radio" name="name1">
+                    Round Trip<br>
+                    <input type="radio" name="name1">
+                    One Way </div>
+                <div class="radio">
+                    <input type="radio" name="name1">
+                    Empty-Leg<br>
+                    <input type="radio" name="name1">
+                    Multi-Leg </div>
             </div>
-            
-            <div class="section_rss_twitter">
-        
-                <div class="rss_twitter twitter">
-                <a href="http://www.templatemo.com" target="_parent">FOLLOW US <span>on Twitter</span></a>
+            <div class="wrapper"> Leaving From:
+                <div class="bg">
+                    <input type="text" class="input input1" value="Enter City or Airport Code" onBlur="if(this.value=='') this.value='Enter City or Airport Code'" onFocus="if(this.value =='Enter City or Airport Code' ) this.value=''">
                 </div>
-                
-                <div class="margin_bottom_20"></div>
-                
-                <div class="rss_twitter rss">
-                <a href="#">SUBSCRIBE <span>rss feeds</span></a>
-                </div>
-            
             </div>
-        
-            <div class="cleaner"></div>
-        </div> <!-- end of sidebar -->
+            <div class="wrapper"> Going To:
+                <div class="bg">
+                    <input type="text" class="input input1" value="Enter City or Airport Code" onBlur="if(this.value=='') this.value='Enter City or Airport Code'" onFocus="if(this.value =='Enter City or Airport Code' ) this.value=''">
+                </div>
+            </div>
+            <div class="wrapper"> Departure Date and Time:
+                <div class="wrapper">
+                    <div class="bg left">
+                        <input type="text" class="input input2" value="mm/dd/yyyy " onBlur="if(this.value=='') this.value='mm/dd/yyyy '" onFocus="if(this.value =='mm/dd/yyyy ' ) this.value=''">
+                    </div>
+                    <div class="bg right">
+                        <input type="text" class="input input2" value="12:00am" onBlur="if(this.value=='') this.value='12:00am'" onFocus="if(this.value =='12:00am' ) this.value=''">
+                    </div>
+                </div>
+            </div>
+            <div class="wrapper"> Return Date and Time:
+                <div class="wrapper">
+                    <div class="bg left">
+                        <input type="text" class="input input2" value="mm/dd/yyyy " onBlur="if(this.value=='') this.value='mm/dd/yyyy '" onFocus="if(this.value =='mm/dd/yyyy ' ) this.value=''">
+                    </div>
+                    <div class="bg right">
+                        <input type="text" class="input input2" value="12:00am" onBlur="if(this.value=='') this.value='12:00am'" onFocus="if(this.value =='12:00am' ) this.value=''">
+                    </div>
+                </div>
+            </div>
+            <div class="wrapper">
+                <p>Passenger(s):</p>
+                <div class="bg left">
+                    <input type="text" class="input input2" value="# passengers" onBlur="if(this.value=='') this.value='# passengers'" onFocus="if(this.value =='# passengers' ) this.value=''">
+                </div>
+                <a href="#" class="button2">go!</a> </div>
+        </form>
+        <h2>Recent News</h2>
+        <p class="under"><a href="#" class="link1">Nemo enim ipsam voluptatem quia</a><br>
+            November 5, 2010</p>
+        <p class="under"><a href="#" class="link1">Voluptas aspernatur autoditaut fjugit</a><br>
+            November 1, 2010</p>
+        <p><a href="#" class="link1">Sed quia consequuntur magni</a><br>
+            October 23, 2010</p>
+    </div>
+</article>

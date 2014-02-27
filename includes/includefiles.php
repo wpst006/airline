@@ -6,7 +6,9 @@ require_once("includes/db.php");
 require_once("includes/autoID.php");
 require_once("includes/loginFunction.php");
 require_once("includes/shoppingcartFunction.php");
+require_once("includes/pageHelper.php");
 require_once("includes/messageHelper.php");
+require_once("includes/ajaxHelper.php");
 
 $objLogIn = new logIn;
 $isLoggedIn = $objLogIn->isLoggedIn();

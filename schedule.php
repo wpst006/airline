@@ -6,7 +6,7 @@ if (isset($_POST['submitted'])) {
     
     //*********************************************************************
     //Filling Data
-    $schedule_id = autoID::getAutoID('schedules', 'schedule_id', 'SCH', 6);
+    $seat_id = autoID::getAutoID('schedules', 'schedule_id', 'SCH', 6);
     $flight_id = $_POST['flight_id'];
     $route_id = $_POST['route_id'];
     $departure_datetime = $_POST['departure_datetime'];
@@ -20,7 +20,7 @@ if (isset($_POST['submitted'])) {
     //"schedules" Table Insert
     $scheduleInsert_sql = "INSERT INTO " .
             "schedules(schedule_id,flight_id,route_id,departure_datetime,arrival_datetime,departure_airport,arrival_airport,remark) " .
-            "VALUES('$schedule_id','$flight_id','$route_id','$departure_datetime_string','$arrival_datetime_string','$departure_airport','$arrival_airport','$remark')";
+            "VALUES('$seat_id','$flight_id','$route_id','$departure_datetime_string','$arrival_datetime_string','$departure_airport','$arrival_airport','$remark')";
 
     mysql_query($scheduleInsert_sql) or die(mysql_error());
     //*********************************************************************   
