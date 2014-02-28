@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Feb 25, 2014 at 01:28 AM
+-- Generation Time: Feb 28, 2014 at 12:20 PM
 -- Server version: 5.5.24-log
 -- PHP Version: 5.3.13
 
@@ -50,7 +50,8 @@ INSERT INTO `customers` (`customer_id`, `firstname`, `lastname`, `gender`, `DOB`
 ('CUS000002', 'a', 'a', 'M', '1990-01-02 00:00:00', 'a', 'a', 'a', 'a', 'a', 'a'),
 ('CUS000003', '', '', '', '0000-00-00 00:00:00', '', '', '', '', '', ''),
 ('CUS000004', '', '', '', '0000-00-00 00:00:00', '', '', '', '', '', ''),
-('CUS000005', '', '', '', '0000-00-00 00:00:00', '', '', '', '', '', '');
+('CUS000005', '', '', '', '0000-00-00 00:00:00', '', '', '', '', '', ''),
+('SET000001', '', '', '', '0000-00-00 00:00:00', '', '', '', '', '', '');
 
 -- --------------------------------------------------------
 
@@ -125,6 +126,50 @@ INSERT INTO `schedules` (`schedule_id`, `flight_id`, `route_id`, `departure_date
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `seats`
+--
+
+CREATE TABLE IF NOT EXISTS `seats` (
+  `seat_id` varchar(15) NOT NULL,
+  `schedule_id` varchar(15) NOT NULL,
+  `seattype_id` varchar(15) NOT NULL,
+  `no_of_seat` int(3) NOT NULL,
+  `price` decimal(10,2) NOT NULL,
+  PRIMARY KEY (`seat_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `seats`
+--
+
+INSERT INTO `seats` (`seat_id`, `schedule_id`, `seattype_id`, `no_of_seat`, `price`) VALUES
+('SET000001', 'SCH000001', 'STT_000002', 3, '34.00'),
+('SET000002', 'SCH000001', 'STT_000001', 5, '54.00'),
+('SET000003', 'SCH000002', 'STT_000001', 2, '22.00');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `seat_types`
+--
+
+CREATE TABLE IF NOT EXISTS `seat_types` (
+  `seattype_id` varchar(15) NOT NULL,
+  `title` varchar(50) NOT NULL,
+  PRIMARY KEY (`seattype_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `seat_types`
+--
+
+INSERT INTO `seat_types` (`seattype_id`, `title`) VALUES
+('STT_000001', 'First Class'),
+('STT_000002', 'Economy');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `users`
 --
 
@@ -146,7 +191,8 @@ INSERT INTO `users` (`user_id`, `username`, `email`, `password`, `role`) VALUES
 ('CUS000002', 'a', 'a@gmail.com', 'a', 'member'),
 ('CUS000003', '', '', '', 'member'),
 ('CUS000004', '', '', '', 'member'),
-('CUS000005', '', '', '', 'member');
+('CUS000005', '', '', '', 'member'),
+('SET000001', '', '', '', 'member');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

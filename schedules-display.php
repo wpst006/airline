@@ -8,7 +8,7 @@
         width: 100%;
     }
 </style>
-
+    
 <div class="row">
     <div class="col-md-12">
         <table id="schedule-table">
