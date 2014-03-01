@@ -1,5 +1,6 @@
 <?php include('includes/includefiles.php'); ?>
 <?php include('includes/header.php'); ?>
+<?php include('includes/scheduleHelper.php'); ?>
 
 <?php
 if (isset($_POST['submitted'])) {
@@ -11,19 +12,19 @@ if (isset($_POST['submitted'])) {
     $no_of_seat = $_POST['no_of_seat'];
     $price = $_POST['price'];
     //*********************************************************************
-    $seatExists=checkSeatExists($schedule_id, $seattype_id);
-    
-    if ($seatExists==true){
+    $seatExists = checkSeatExists($schedule_id, $seattype_id);
+
+    if ($seatExists == true) {
         updateSeats($schedule_id, $seattype_id, $no_of_seat, $price);
-    }else{
-        saveSeats($seat_id,$schedule_id,$seattype_id,$no_of_seat,$price);
-    }    
+    } else {
+        saveSeats($seat_id, $schedule_id, $seattype_id, $no_of_seat, $price);
+    }
     //*********************************************************************
     messageHelper::setMessage("You have successfully save the Seat Type.", MESSAGE_TYPE_SUCCESS);
     header("Location:seat-setup.php?schedule_id=" . $schedule_id);
     exit();
 } else {
-    $seat_id = $_GET['schedule_id'];
+    $schedule_id = $_GET['schedule_id'];
 }
 
 function checkSeatExists($schedule_id, $seattype_id) {
@@ -42,7 +43,7 @@ function checkSeatExists($schedule_id, $seattype_id) {
     }
 }
 
-function updateSeats($schedule_id,$seattype_id,$no_of_seat,$price) {
+function updateSeats($schedule_id, $seattype_id, $no_of_seat, $price) {
     //"seats" Table Update
     $seatUpdate_sql = "UPDATE " .
             "seats " .
@@ -54,7 +55,7 @@ function updateSeats($schedule_id,$seattype_id,$no_of_seat,$price) {
     mysql_query($seatUpdate_sql) or die(mysql_error());
 }
 
-function saveSeats($seat_id,$schedule_id,$seattype_id,$no_of_seat,$price) {
+function saveSeats($seat_id, $schedule_id, $seattype_id, $no_of_seat, $price) {
     //"seats" Table Insert
     $seatInsert_sql = "INSERT INTO " .
             "seats(seat_id,schedule_id,seattype_id,no_of_seat,price) " .
@@ -69,7 +70,7 @@ function saveSeats($seat_id,$schedule_id,$seattype_id,$no_of_seat,$price) {
     <div class="col-md-12">
         <form role="form" id="seat_setup" name="seat_setup" action="seat-setup.php" method="post" class="form-horizontal">
 
-            <input type="hidden" id="schedule_id" name="schedule_id" value="<?php echo $seat_id; ?>" />
+            <input type="hidden" id="schedule_id" name="schedule_id" value="<?php echo $schedule_id; ?>" />
 
             <div class="form-group">
                 <div class="col-sm-3 control-label">Seat Type :</div>
@@ -123,15 +124,9 @@ function saveSeats($seat_id,$schedule_id,$seattype_id,$no_of_seat,$price) {
             </thead>
             <tbody>
                 <?php
-                $sql = "SELECT seats.*,seat_types.title AS 'seattype_title' FROM seats " .
-                        "INNER JOIN seat_types " .
-                        "ON seats.seattype_id=seat_types.seattype_id " .
-                        "WHERE schedule_id='" . $_GET['schedule_id'] . "' " .
-                        "ORDER BY seat_id";
-                //print_r($sql);exit();
-                $result = mysql_query($sql) or die(mysql_error());
+                $scheduleData=  scheduleHelper::getSeatsInScheduleByScheduleID($schedule_id);
                 ?>
-                <?php while ($row = mysql_fetch_array($result)) { ?>
+                <?php foreach ($scheduleData as $row) { ?>
                     <tr>
                         <td><?php echo $row['seat_id']; ?></td>
                         <td><?php echo $row['schedule_id']; ?></td>
@@ -187,9 +182,10 @@ function saveSeats($seat_id,$schedule_id,$seattype_id,$no_of_seat,$price) {
     $(document).ready(function(){
         $('#seat-table').dataTable( {
             //"sPaginationType": "bootstrap",
-            "sPaginationType": "full_numbers",
+            //"sPaginationType": "full_numbers",
+            "bPaginate": false,
             "bLengthChange": false,
-            "bFilter": true,
+            "bFilter": false,
             "bInfo": false,
         } );
         

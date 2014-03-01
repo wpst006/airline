@@ -64,10 +64,13 @@
 
                 $hasSideBar = true;
 
-                $hasSideBar = !in_array($currentPageName, array('schedules-display.php'));
+                $hasSideBar = !in_array($currentPageName, array('schedule.php',
+                    'schedules-display.php',
+                    'routes-display.php',
+                    'route-detail-display.php'));
 
                 if ($hasSideBar == true) {
-                    include('includes/sidebar.php');
+                    //include('includes/sidebar.php');
                 }
                 ?>
                 <article class="col2 pad_left1">

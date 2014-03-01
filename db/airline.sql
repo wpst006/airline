@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Feb 28, 2014 at 12:20 PM
+-- Generation Time: Mar 02, 2014 at 12:08 AM
 -- Server version: 5.5.24-log
 -- PHP Version: 5.3.13
 
@@ -19,6 +19,53 @@ SET time_zone = "+00:00";
 --
 -- Database: `airline`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `bookingdetails`
+--
+
+CREATE TABLE IF NOT EXISTS `bookingdetails` (
+  `bookingdetail_id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `booking_id` varchar(15) NOT NULL,
+  `seat_id` varchar(15) NOT NULL,
+  `no_of_seats` int(3) NOT NULL,
+  `price` decimal(10,2) NOT NULL,
+  PRIMARY KEY (`bookingdetail_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
+
+--
+-- Dumping data for table `bookingdetails`
+--
+
+INSERT INTO `bookingdetails` (`bookingdetail_id`, `booking_id`, `seat_id`, `no_of_seats`, `price`) VALUES
+(3, '1271499799', 'SET000005', 1, '5.00'),
+(4, '1271499799', 'SET000004', 1, '3.00'),
+(5, '1244330429', 'SET000005', 1, '5.00');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `bookings`
+--
+
+CREATE TABLE IF NOT EXISTS `bookings` (
+  `booking_id` varchar(15) NOT NULL,
+  `bookingdate` datetime NOT NULL,
+  `customer_id` varchar(15) NOT NULL,
+  `total` decimal(10,2) NOT NULL,
+  `status` int(1) DEFAULT NULL,
+  PRIMARY KEY (`booking_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `bookings`
+--
+
+INSERT INTO `bookings` (`booking_id`, `bookingdate`, `customer_id`, `total`, `status`) VALUES
+('1244330429', '2014-03-01 23:50:42', 'CUS000002', '5.00', 1),
+('1271499799', '2014-03-01 23:49:00', 'CUS000002', '8.00', NULL);
 
 -- --------------------------------------------------------
 
@@ -77,6 +124,31 @@ INSERT INTO `flights` (`flight_id`, `name`, `remark`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `payments`
+--
+
+CREATE TABLE IF NOT EXISTS `payments` (
+  `payment_id` varchar(15) NOT NULL,
+  `paymentdate` datetime NOT NULL,
+  `booking_id` varchar(15) NOT NULL,
+  `cardno` varchar(30) NOT NULL,
+  `cardtype` varchar(10) NOT NULL,
+  `cardholdername` varchar(30) NOT NULL,
+  `securitycode` varchar(5) NOT NULL,
+  PRIMARY KEY (`payment_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `payments`
+--
+
+INSERT INTO `payments` (`payment_id`, `paymentdate`, `booking_id`, `cardno`, `cardtype`, `cardholdername`, `securitycode`) VALUES
+('1191387565', '2014-03-01 23:49:00', '1271499799', 'a', 'mastercard', 'a', 'asd'),
+('1310702882', '2014-03-01 23:50:42', '1244330429', 'b', 'mastercard', 'b', 'b');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `routes`
 --
 
@@ -94,7 +166,9 @@ CREATE TABLE IF NOT EXISTS `routes` (
 
 INSERT INTO `routes` (`route_id`, `title`, `duration`, `remark`) VALUES
 ('ROU_000001', 'Yangon - Mandalay', '1:00 hr', ''),
-('ROU_000002', 'Yangon - Nay Pyi Daw', '0:30 hr', '');
+('ROU_000002', 'Yangon - Nay Pyi Daw', '0:30 hr', ''),
+('ROU_000003', 'Yangon - Mandalay - Taunggyi', '2:00 hr', ''),
+('ROU_000004', 'Yangon - Pathein', '1:00 hr', '');
 
 -- --------------------------------------------------------
 
@@ -110,6 +184,7 @@ CREATE TABLE IF NOT EXISTS `schedules` (
   `arrival_datetime` datetime NOT NULL,
   `departure_airport` varchar(50) NOT NULL,
   `arrival_airport` varchar(50) NOT NULL,
+  `active` int(1) NOT NULL,
   `remark` varchar(255) NOT NULL,
   PRIMARY KEY (`schedule_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -118,10 +193,17 @@ CREATE TABLE IF NOT EXISTS `schedules` (
 -- Dumping data for table `schedules`
 --
 
-INSERT INTO `schedules` (`schedule_id`, `flight_id`, `route_id`, `departure_datetime`, `arrival_datetime`, `departure_airport`, `arrival_airport`, `remark`) VALUES
-('SCH000001', 'FLH_000001', 'ROU_000001', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'a', 'a', 'a'),
-('SCH000002', 'FLH_000001', 'ROU_000001', '2014-02-25 01:28:00', '2014-02-25 01:28:00', 'a', 'a', 'a'),
-('SCH000003', 'FLH_000001', 'ROU_000001', '2014-02-25 01:28:00', '2014-03-01 01:28:00', 'a', 'a', 'a');
+INSERT INTO `schedules` (`schedule_id`, `flight_id`, `route_id`, `departure_datetime`, `arrival_datetime`, `departure_airport`, `arrival_airport`, `active`, `remark`) VALUES
+('SCH_000001', 'FLH_000001', 'ROU_000001', '2014-02-06 00:00:00', '2014-02-07 00:00:00', 'a', 'a', 1, 'a'),
+('SCH_000002', 'FLH_000002', 'ROU_000001', '2014-02-25 01:28:00', '2014-02-25 01:28:00', 'a', 'a', 1, 'a'),
+('SCH_000003', 'FLH_000001', 'ROU_000001', '2014-02-25 01:28:00', '2014-03-01 01:28:00', 'a', 'a', 1, 'a'),
+('SCH_000004', 'FLH_000002', 'ROU_000001', '2014-03-13 08:41:00', '2014-03-01 08:41:00', 'c', 'c', 1, ''),
+('SCH_000005', 'FLH_000001', 'ROU_000001', '2014-03-01 08:45:00', '2014-03-01 08:45:00', 'd', 'd', 1, ''),
+('SCH_000006', 'FLH_000001', 'ROU_000001', '2014-03-01 08:48:00', '2014-03-01 08:48:00', 'g', 'g', 1, ''),
+('SCH_000007', 'FLH_000001', 'ROU_000001', '2014-03-01 08:48:00', '2014-03-01 08:48:00', 'i', 'i', 1, ''),
+('SCH_000008', 'FLH_000001', 'ROU_000001', '2014-03-01 08:49:00', '2014-03-01 08:49:00', 'k', 'k', 1, ''),
+('SCH_000009', 'FLH_000002', 'ROU_000001', '2014-03-01 08:49:00', '2014-03-01 08:49:00', 'aa', 'aa', 1, ''),
+('SCH_000010', 'FLH_000002', 'ROU_000001', '2014-03-01 08:50:00', '2014-03-01 08:50:00', 'ccc', 'ccc', 1, '');
 
 -- --------------------------------------------------------
 
@@ -134,6 +216,7 @@ CREATE TABLE IF NOT EXISTS `seats` (
   `schedule_id` varchar(15) NOT NULL,
   `seattype_id` varchar(15) NOT NULL,
   `no_of_seat` int(3) NOT NULL,
+  `booked_seat` int(3) NOT NULL,
   `price` decimal(10,2) NOT NULL,
   PRIMARY KEY (`seat_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -142,10 +225,12 @@ CREATE TABLE IF NOT EXISTS `seats` (
 -- Dumping data for table `seats`
 --
 
-INSERT INTO `seats` (`seat_id`, `schedule_id`, `seattype_id`, `no_of_seat`, `price`) VALUES
-('SET000001', 'SCH000001', 'STT_000002', 3, '34.00'),
-('SET000002', 'SCH000001', 'STT_000001', 5, '54.00'),
-('SET000003', 'SCH000002', 'STT_000001', 2, '22.00');
+INSERT INTO `seats` (`seat_id`, `schedule_id`, `seattype_id`, `no_of_seat`, `booked_seat`, `price`) VALUES
+('SET000001', 'SCH000001', 'STT_000002', 3, 0, '34.00'),
+('SET000002', 'SCH000001', 'STT_000001', 5, 0, '54.00'),
+('SET000003', 'SCH000002', 'STT_000001', 2, 0, '22.00'),
+('SET000004', 'SCH_000001', 'STT_000001', 3, 0, '3.00'),
+('SET000005', 'SCH_000001', 'STT_000002', 5, 0, '5.00');
 
 -- --------------------------------------------------------
 

@@ -14,10 +14,6 @@ root {
     padding-top: 20px;
 }
 
-.col2 {
-    width: 630px;
-}
-
 form.form-horizontal{    
     /*padding-top:20px;*/
 }
@@ -46,4 +42,8 @@ a.btn, a.btn:link, a.btn:visited {
 
 .body1 .main .wrapper h1{
     margin:0px;
+}
+
+.col2 {
+    width: 100%;
 }

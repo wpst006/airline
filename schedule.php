@@ -1,4 +1,6 @@
 <?php include('includes/includefiles.php'); ?>
+<?php require_once("includes/routeHelper.php"); ?>
+<?php require_once("includes/flightHelper.php"); ?>
 
 <?php
 if (isset($_POST['submitted'])) {
@@ -6,7 +8,7 @@ if (isset($_POST['submitted'])) {
     
     //*********************************************************************
     //Filling Data
-    $seat_id = autoID::getAutoID('schedules', 'schedule_id', 'SCH', 6);
+    $seat_id = autoID::getAutoID('schedules', 'schedule_id', 'SCH_', 6);
     $flight_id = $_POST['flight_id'];
     $route_id = $_POST['route_id'];
     $departure_datetime = $_POST['departure_datetime'];
@@ -19,14 +21,14 @@ if (isset($_POST['submitted'])) {
     $arrival_datetime_string=date('Y-m-d H:i:00',strtotime($arrival_datetime));
     //"schedules" Table Insert
     $scheduleInsert_sql = "INSERT INTO " .
-            "schedules(schedule_id,flight_id,route_id,departure_datetime,arrival_datetime,departure_airport,arrival_airport,remark) " .
-            "VALUES('$seat_id','$flight_id','$route_id','$departure_datetime_string','$arrival_datetime_string','$departure_airport','$arrival_airport','$remark')";
+            "schedules(schedule_id,flight_id,route_id,departure_datetime,arrival_datetime,departure_airport,arrival_airport,active,remark) " .
+            "VALUES('$seat_id','$flight_id','$route_id','$departure_datetime_string','$arrival_datetime_string','$departure_airport','$arrival_airport',1,'$remark')";
 
     mysql_query($scheduleInsert_sql) or die(mysql_error());
     //*********************************************************************   
     messageHelper::setMessage("You have successfully add schedule.", MESSAGE_TYPE_SUCCESS);
-    //header("Location:login.php");
-    //exit();
+    header("Location:route-detail-display.php?route_id=" . $_POST['route_id']);
+    exit();
 }
 ?>
 
@@ -39,32 +41,16 @@ if (isset($_POST['submitted'])) {
             <div class="form-group">
                 <label class="col-sm-3 control-label">Flight :</label>
                 <div class="col-sm-9">
-                    <?php
-                    $sql = "SELECT flight_id,name FROM flights " .
-                            "ORDER BY name";
-                    $result = mysql_query($sql) or die(mysql_error());
-                    ?>
-                    <select id="flight_id" name="flight_id" class="chosen-select" data-placeholder="Choose flight ...">
-                        <?php while ($row = mysql_fetch_array($result)) { ?>
-                            <option value="<?php echo $row['flight_id']; ?>"><?php echo $row['name']; ?></option>
-                        <?php } ?>
-                    </select>
+                    <p class="form-control-static"><?php echo flightHelper::getFlightNameByFligthID($_GET['flight_id']); ?></p>
+                    <input type="hidden" id="flight_id" name="flight_id" value="<?php echo $_GET['flight_id']; ?>" />
                 </div>                            
             </div>
             
             <div class="form-group">
                 <label class="col-sm-3 control-label">Route :</label>
                 <div class="col-sm-9">
-                    <?php
-                    $sql = "SELECT route_id,title FROM routes " .
-                            "ORDER BY title";
-                    $result = mysql_query($sql) or die(mysql_error());
-                    ?>
-                    <select id="route_id" name="route_id" class="chosen-select" data-placeholder="Choose Route ...">
-                        <?php while ($row = mysql_fetch_array($result)) { ?>
-                            <option value="<?php echo $row['route_id']; ?>"><?php echo $row['title']; ?></option>
-                        <?php } ?>
-                    </select>
+                    <p class="form-control-static"><?php echo routeHelper::getRouteTitleByRouteID($_GET['route_id']); ?></p>
+                    <input type="hidden" id="route_id" name="route_id" value="<?php echo $_GET['route_id']; ?>" />
                 </div>                            
             </div>
             
@@ -130,8 +116,7 @@ if (isset($_POST['submitted'])) {
 </div>
 
 <script type="text/javascript">    
-    $(document).ready(function(){
-        $(".chosen-select").chosen({width: "95%"}); 
+    $(document).ready(function(){        
     });
     
     $("#schedule").validate({
