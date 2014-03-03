@@ -42,7 +42,6 @@
                                         <li><a href="logout.php">Log Out</a></li>
                                     <?php } ?>
                                     <li><a href="register.php">Register</a></li>
-                                    <li><a href="schedule.php">Schedule</a></li>
                                 </ul>
                             </nav>
                         </div>

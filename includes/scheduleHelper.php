@@ -1,5 +1,4 @@
 <?php
-
 class scheduleHelper{
     public static function getSeatsInScheduleByScheduleID($schdule_id){
         $sql = "SELECT seats.*,seat_types.title AS 'seattype_title' FROM seats " .

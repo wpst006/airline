@@ -32,6 +32,13 @@ if (isset($_GET['mode'])) {
     $mode = $_GET['mode'];
 }
 //***************************************************************************************************************************
+if (isset($_GET['action'])) {
+    if ($_GET['action'] == 'delete') {
+        $delete_sql = "DELETE FROM schedules WHERE schedule_id='" . $_GET['schedule_id'] . "'";
+        mysql_query($delete_sql) or die(mysql_error());
+    }
+}
+//***************************************************************************************************************************
 
 $flight_sql = "SELECT flights.*
             FROM flights
@@ -101,12 +108,22 @@ if ($noOfRows == 0) {
                                 } else if ($mode == 'booking') {
                                     $link = "booking-select-seat-type.php?schedule_id=" . $row['schedule_id'];
                                     $linkText = "Add Booking";
-                                }else if ($mode=='admin'){
+                                } else if ($mode == 'admin') {
                                     $link = "seat-setup.php?schedule_id=" . $row['schedule_id'];
                                     $linkText = "Seat SetUp";
                                 }
                                 ?>
-                                <td><a href="<?php echo $link; ?>"><?php echo $linkText; ?></a></td>
+                                <td class="text-right">
+                                    <a href="<?php echo $link; ?>"><?php echo $linkText; ?></a>
+                                    <?php
+                                    if ($mode == 'admin') {
+                                        $editLink = "schedule.php?schedule_id=" . $row['schedule_id'] . "&route_id=" . $route_id .
+                                                "&flight_id=" . $flightRow['flight_id'];
+                                        ?>
+                                        &nbsp;<a href="<?php echo $editLink; ?>">Edit</a>
+                                        &nbsp;<a href="booking.php?schedule_id=<?php echo $row['schedule_id']; ?>&action=delete" class="delete-link">Delete</a>
+                                    <?php } ?>
+                                </td>
                             </tr>
                         <?php }//end of inner "while" loop ?>
                     </tbody>                
@@ -115,7 +132,7 @@ if ($noOfRows == 0) {
                 $addScheduleLink = "schedule.php?route_id=" . $route_id .
                         "&flight_id=" . $flightRow['flight_id'];
                 ?>
-                <a href="<?php echo $addScheduleLink; ?>">Add Schedule</a>
+                <a href="<?php echo $addScheduleLink; ?>" class="btn btn-primary pull-right">Add Schedule</a>
                 <br/>
             </div>
         </div>
@@ -132,6 +149,15 @@ if ($noOfRows == 0) {
             "bLengthChange": false,
             "bFilter": false,
             "bInfo": false,
-        });                       
+        });     
+        
+        $( ".delete-link" ).click(function( event ) {
+            if (window.confirm("Are you sure want to delete the schdule?")==true){
+                return true;
+            }else{
+                event.preventDefault();
+                return false;
+            }
+        });
     });
 </script>

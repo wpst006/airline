@@ -1,6 +1,6 @@
 <?php include('includes/includefiles.php'); ?>
+<?php require_once('includes/scheduleHelper.php'); ?>
 <?php include('includes/header.php'); ?>
-<?php include('includes/scheduleHelper.php'); ?>
 
 <?php
 if (isset($_POST['submitted'])) {
