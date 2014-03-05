@@ -152,7 +152,7 @@ if ($noOfRows == 0) {
         });     
         
         $( ".delete-link" ).click(function( event ) {
-            if (window.confirm("Are you sure want to delete the schdule?")==true){
+            if (window.confirm("Are you sure want to delete the schedule?")==true){
                 return true;
             }else{
                 event.preventDefault();
