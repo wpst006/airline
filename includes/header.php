@@ -45,6 +45,10 @@
                                     <?php if ($objLogIn->isMemberLogIn() == true) { ?>
                                         <li><a href="addSeat.php">Booking Summary</a></li>
                                     <?php } ?>
+                                    <?php if ($objLogIn->isAdminLogIn() == true) { ?>
+                                        <li><a href="flights.php">Flight</a></li>
+                                        <li><a href="routes.php">Route</a></li>
+                                    <?php } ?>
                                 </ul>
                             </nav>
                         </div>

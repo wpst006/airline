@@ -13,12 +13,12 @@ $objShoppingCart = new ShoppingCart();
 //var_dump($objShoppingCart->getShoppingCart());
 if ($action == 'add2cart') {
     $schedule_id = $_GET['schedule_id'];
-    $seat_id = $_GET['seat_id'];
+    $flight_id = $_GET['seat_id'];
     $seattype_id = $_GET['seattype_id'];
     $seat_type = $_GET['seat_type'];
     $price = $_GET['price'];
 
-    if ($objShoppingCart->insert($schedule_id, $seat_id, $seattype_id, $seat_type, $price) == 1) {
+    if ($objShoppingCart->insert($schedule_id, $flight_id, $seattype_id, $seat_type, $price) == 1) {
         messageHelper::setMessage('Seat is successfully added to the booking.', MESSAGE_TYPE_SUCCESS);
     } else {
         messageHelper::setMessage('Error occured while adding seat to the booking.', MESSAGE_TYPE_ERROR);
@@ -31,8 +31,8 @@ if ($action == 'clear') {
 }
 
 if ($action == 'remove') {
-    $seat_id = $_GET['seat_id'];
-    $objShoppingCart->remove($seat_id);
+    $flight_id = $_GET['seat_id'];
+    $objShoppingCart->remove($flight_id);
     messageHelper::setMessage('Seat is successfully removed from the booking.', MESSAGE_TYPE_INFO);
 }
 ?>

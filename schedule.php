@@ -45,7 +45,8 @@ if (isset($_POST['submitted'])) {
     mysql_query($schedule_sql) or die(mysql_error());
     //*********************************************************************   
     messageHelper::setMessage("You have successfully add schedule.", MESSAGE_TYPE_SUCCESS);
-    header("Location:route-detail-display.php?route_id=" . $_POST['route_id']);
+    //header("Location:route-detail-display.php?route_id=" . $_POST['route_id']);
+    header("Location:booking.php?route_id=" . $route_id);
     exit();
 } else {
     $departure_datetime = date('Y-m-d h:i A', time());

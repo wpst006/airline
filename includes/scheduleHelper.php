@@ -53,7 +53,8 @@ class scheduleHelper{
                 'arrival_airport'=>$row['arrival_airport'],                  
                 'active'=>$row['active'],
                 'remark'=>$row['remark'],
-                'duration'=>$row['duration'],                
+                'hour'=>$row['hour'],                
+                'min'=>$row['min'],                
             );
         }
         

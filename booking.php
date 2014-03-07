@@ -1,35 +1,40 @@
 <?php include('includes/includefiles.php'); ?>
 
-<?php $pageTitle="Booking"; ?>
+<?php $pageTitle = "Booking"; ?>
 <?php include('includes/header.php'); ?>
 
 <style>
     #route_id_chosen{
         margin-top:5px;
     }
-    
+
     #btn-search{
         width:20%;
     }
 </style>
 
-<?php if (isset($_POST['route_id'])) { ?>
-    <div id="selected_route_id" style="display:none;"><?php echo $_POST['route_id']; ?></div>
+<?php if (isset($_GET['route_id'])) { 
+    $_POST['route_id_main']=$_GET['route_id'];
+}
+?>
+
+<?php if (isset($_POST['route_id_main'])) { ?>
+    <div id="selected_route_id" style="display:none;"><?php echo $_POST['route_id_main']; ?></div>
 <?php } ?>
-    
+
 <div class="row">
     <div class="col-md-12">
         <form role="form" id="booking" name="booking" action="booking.php" method="post" class="form-horizontal">                     
-            
+
             <div class="form-group">
                 <label class="col-sm-2 control-label">Route :</label>
                 <div class="col-sm-10">
                     <?php
                     $route_sql = "SELECT * FROM routes " .
-                            "ORDER BY title";
+                            "ORDER BY route_id";
                     $route_result = mysql_query($route_sql) or die(mysql_error());
                     ?>
-                    <select id="route_id" name="route_id" class="chosen-select">
+                    <select id="route_id_main" name="route_id_main" class="chosen-select">
                         <?php while ($row = mysql_fetch_array($route_result)) { ?>
                             <option value="<?php echo $row['route_id']; ?>"><?php echo $row['title']; ?></option>
                         <?php } ?>
@@ -43,12 +48,13 @@
 
 <div class="row">
     <div class="col-md-12">
-        <?php if (isset($_POST['route_id'])){
-            $_GET['route_id']=$_POST['route_id'];
+        <?php
+        if (isset($_POST['route_id_main'])) {
+            $_GET['route_id_main'] = $_POST['route_id_main'];
         }
-        $_GET['mode']='booking';
+        $_GET['mode'] = 'booking';
         ?>        
-        <?php include('includes/flight-schedules.php'); ?>
+<?php include('includes/flight-schedules.php'); ?>
     </div>
 </div>
 
@@ -57,6 +63,8 @@
         $(".chosen-select").chosen({width: "75%"}); 
         
         if ($('#selected_route_id').length>0){
+            $('#route_id_main').val($('#selected_route_id').html());
+            $("#route_id_main").trigger("chosen:updated");
             $('#route_id').val($('#selected_route_id').html());
             $("#route_id").trigger("chosen:updated");
         }

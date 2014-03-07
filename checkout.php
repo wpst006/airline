@@ -37,13 +37,13 @@ if (isset($_POST['submitted'])) {
     mysql_query($bookingInsert_sql) or die(mysql_error());
     //******************************************************************************************************************************************        
     foreach ($shoppingCartData as $index=>$shoppingCartItem){
-        $seat_id=$shoppingCartItem['seat_id'];
+        $flight_id=$shoppingCartItem['seat_id'];
         $no_of_seat_to_book=$shoppingCartItem['no_of_seat_to_book'];
         $price=$shoppingCartItem['price'];
         
         $bookingDetailInsert_sql = "INSERT INTO " .
             "bookingdetails(booking_id,seat_id,no_of_seats,price) " .
-            "VALUES('$booking_id','$seat_id',$no_of_seat_to_book,$price)";
+            "VALUES('$booking_id','$flight_id',$no_of_seat_to_book,$price)";
     
         mysql_query($bookingDetailInsert_sql) or die(mysql_error());
     }
