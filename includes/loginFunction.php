@@ -51,5 +51,22 @@ class logIn {
 
         return true;
     }
+    
+    function getLoggedInUserInfo(){
+        if (!isset($_SESSION['user']))
+            return null;
+
+        if (!isset($_SESSION['user']['role']))
+            return null;
+			
+        $output=array(
+            'user_id'=>$_SESSION['user']['user_id'],
+            'username'=>$_SESSION['user']['username'] ,
+            'password'=>$_SESSION['user']['password'],
+            'role'=>$_SESSION['user']['role'] 
+        );
+        
+        return $output;
+    }
 }
 ?>

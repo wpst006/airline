@@ -21,6 +21,7 @@ if (isset($_POST['submitted'])) {
 }
 ?>
 
+<?php $pageTitle="Log In"; ?>
 <?php include('includes/header.php'); ?>
 
 <div class="row">

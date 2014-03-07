@@ -1,5 +1,8 @@
 <?php include('includes/includefiles.php'); ?>
 <?php require_once('includes/scheduleHelper.php'); ?>
+
+<?php $pageTitle="Seat Setup"; ?>
+
 <?php include('includes/header.php'); ?>
 
 <?php
@@ -72,6 +75,24 @@ function saveSeats($seat_id, $schedule_id, $seattype_id, $no_of_seat, $price) {
 
             <input type="hidden" id="schedule_id" name="schedule_id" value="<?php echo $schedule_id; ?>" />
 
+            <?php
+            $scheduleData=  scheduleHelper::getScheduleByScheduleID($schedule_id);
+            ?>
+            
+            <div class="form-group">
+                <label class="col-sm-3 control-label">Route</label>
+                <div class="col-sm-9">
+                    <p id="title" class="form-control-static"><?php echo $scheduleData[0]['route_title']; ?></p>                    
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-3 control-label">Flight</label>
+                <div class="col-sm-9">
+                    <p id="title" class="form-control-static"><?php echo $scheduleData[0]['flight_name']; ?></p>                    
+                </div>
+            </div>
+            
             <div class="form-group">
                 <div class="col-sm-3 control-label">Seat Type :</div>
                 <div class="col-sm-9">
@@ -112,12 +133,13 @@ function saveSeats($seat_id, $schedule_id, $seattype_id, $no_of_seat, $price) {
     </div>
 </div>
 
-<div class="row">
-    <div class="col-md-12">
-        <table id="seat-table">
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Seats</h3>
+  </div>
+  <div class="panel-body">
+    <table id="seat-table">
             <thead>
-            <th>Seat ID</th>
-            <th>Schedule ID</th>
             <th>Seat Type</th>
             <th>No of Seat</th>
             <th>Price</th>
@@ -128,16 +150,14 @@ function saveSeats($seat_id, $schedule_id, $seattype_id, $no_of_seat, $price) {
                 ?>
                 <?php foreach ($scheduleData as $row) { ?>
                     <tr>
-                        <td><?php echo $row['seat_id']; ?></td>
-                        <td><?php echo $row['schedule_id']; ?></td>
                         <td><?php echo $row['seattype_title']; ?></td>
                         <td><?php echo $row['no_of_seat']; ?></td>
-                        <td><?php echo $row['price']; ?></td>
+                        <td class="price-column"><?php echo $row['price']; ?></td>
                     </tr>
                 <?php } ?>
             </tbody>
         </table>
-    </div>
+  </div>
 </div>
 
 <script type="text/javascript">

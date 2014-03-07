@@ -38,58 +38,74 @@
                                     <li id="menu_active"><a href="index.php">Home</a></li>
                                     <?php if ($isLoggedIn == false) { ?>
                                         <li><a href="login.php">Log In</a></li>
+                                        <li><a href="register.php">Register</a></li>
                                     <?php } else { ?>
                                         <li><a href="logout.php">Log Out</a></li>
                                     <?php } ?>
-                                    <li><a href="register.php">Register</a></li>
+                                    <?php if ($objLogIn->isMemberLogIn() == true) { ?>
+                                        <li><a href="addSeat.php">Booking Summary</a></li>
+                                    <?php } ?>
                                 </ul>
                             </nav>
                         </div>
+                        <?php 
+                        $logInData=$objLogIn->getLoggedInUserInfo();
+                        
+                        if (isset($logInData)){ ?>
+                        <div class="loggedin-info">                            
+                            <p><?php echo $logInData['username'] . " (" . $logInData['role'] . ")";?></p>
+                        </div>
+                        <?php } ?>
                     </div>
                 </header>
             </div>
         </div>
         <div class="main">
             <div id="banner">
-                <div class="text1"> COMFORT<span>Guaranteed</span>
+<!--                <div class="text1"> COMFORT<span>Guaranteed</span>
                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
                 </div>
-                <a href="#" class="button_top">Order Tickets Online</a></div>
-        </div>
-        <div class="main">
-            <section id="content">
-                <?php
-                $currentPageName = pageHelper::getCurrentPageName();
-
-                $hasSideBar = true;
-
-                $hasSideBar = !in_array($currentPageName, array('schedule.php',
-                    'schedules-display.php',
-                    'routes-display.php',
-                    'route-detail-display.php'));
-
-                if ($hasSideBar == true) {
-                    //include('includes/sidebar.php');
-                }
-                ?>
-                <article class="col2 pad_left1">
-
-                    <!-- Site JavaScript -->
-                    <script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
-                    <!--<script type="text/javascript" src="js/jquery.js"></script>-->
-                    <script type="text/javascript" src="js/jquery.validate.min.js"></script>
-
-                    <script type="text/javascript" src="js/bootstrap.min.js"></script>
-                    <script type="text/javascript" src="js/moment-2.4.0.js"></script>
-                    <script type="text/javascript" src="js/bootstrap-datetimepicker.js"></script>
-
-                    <script src="js/chosen/chosen.jquery.min.js" type="text/javascript"></script>                                
-                    <script src="js/chosen/chosen.proto.min.js" type="text/javascript"></script>
+                <a href="#" class="button_top">Order Tickets Online</a></div>-->
+            </div>
+            <div class="main">
+                <section id="content">
                     <?php
-                    $message = messageHelper::getMessage();
+                    $currentPageName = pageHelper::getCurrentPageName();
 
-                    if (isset($message)) {
-                        echo $message;
-                        messageHelper::clearMessage();
+                    $hasSideBar = true;
+
+                    $hasSideBar = !in_array($currentPageName, array('schedule.php',
+                                'schedules-display.php',
+                                'routes-display.php',
+                                'route-detail-display.php'));
+
+                    if ($hasSideBar == true) {
+                        //include('includes/sidebar.php');
                     }
                     ?>
+                    <article class="col2 pad_left1">
+
+                        <!-- Site JavaScript -->
+                        <script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
+                        <!--<script type="text/javascript" src="js/jquery.js"></script>-->
+                        <script type="text/javascript" src="js/jquery.validate.min.js"></script>
+
+                        <script type="text/javascript" src="js/bootstrap.min.js"></script>
+                        <script type="text/javascript" src="js/moment-2.4.0.js"></script>
+                        <script type="text/javascript" src="js/bootstrap-datetimepicker.js"></script>
+
+                        <script src="js/chosen/chosen.jquery.min.js" type="text/javascript"></script>                                
+                        <script src="js/chosen/chosen.proto.min.js" type="text/javascript"></script>
+
+                        <?php if (isset($pageTitle)) { ?>
+                            <div class="my-page-heading"><?php echo $pageTitle; ?></div>
+                        <?php } ?>
+
+                        <?php
+                        $message = messageHelper::getMessage();
+
+                        if (isset($message)) {
+                            echo $message;
+                            messageHelper::clearMessage();
+                        }
+                        ?>

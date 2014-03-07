@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Mar 02, 2014 at 12:08 AM
+-- Generation Time: Mar 08, 2014 at 12:37 AM
 -- Server version: 5.5.24-log
 -- PHP Version: 5.3.13
 
@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS `bookingdetails` (
   `no_of_seats` int(3) NOT NULL,
   `price` decimal(10,2) NOT NULL,
   PRIMARY KEY (`bookingdetail_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
 
 --
 -- Dumping data for table `bookingdetails`
@@ -42,7 +42,8 @@ CREATE TABLE IF NOT EXISTS `bookingdetails` (
 INSERT INTO `bookingdetails` (`bookingdetail_id`, `booking_id`, `seat_id`, `no_of_seats`, `price`) VALUES
 (3, '1271499799', 'SET000005', 1, '5.00'),
 (4, '1271499799', 'SET000004', 1, '3.00'),
-(5, '1244330429', 'SET000005', 1, '5.00');
+(5, '1244330429', 'SET000005', 1, '5.00'),
+(6, '1216595412', 'SET000005', 1, '5.00');
 
 -- --------------------------------------------------------
 
@@ -64,6 +65,7 @@ CREATE TABLE IF NOT EXISTS `bookings` (
 --
 
 INSERT INTO `bookings` (`booking_id`, `bookingdate`, `customer_id`, `total`, `status`) VALUES
+('1216595412', '2014-03-08 00:00:58', 'CUS000002', '5.00', 1),
 ('1244330429', '2014-03-01 23:50:42', 'CUS000002', '5.00', 1),
 ('1271499799', '2014-03-01 23:49:00', 'CUS000002', '8.00', NULL);
 
@@ -143,6 +145,7 @@ CREATE TABLE IF NOT EXISTS `payments` (
 --
 
 INSERT INTO `payments` (`payment_id`, `paymentdate`, `booking_id`, `cardno`, `cardtype`, `cardholdername`, `securitycode`) VALUES
+('1125316184', '2014-03-08 00:00:58', '1216595412', 'a', 'mastercard', 'a', 'asdf'),
 ('1191387565', '2014-03-01 23:49:00', '1271499799', 'a', 'mastercard', 'a', 'asd'),
 ('1310702882', '2014-03-01 23:50:42', '1244330429', 'b', 'mastercard', 'b', 'b');
 
@@ -194,16 +197,10 @@ CREATE TABLE IF NOT EXISTS `schedules` (
 --
 
 INSERT INTO `schedules` (`schedule_id`, `flight_id`, `route_id`, `departure_datetime`, `arrival_datetime`, `departure_airport`, `arrival_airport`, `active`, `remark`) VALUES
-('SCH_000001', 'FLH_000001', 'ROU_000001', '2014-02-06 00:00:00', '2014-02-07 00:00:00', 'a', 'a', 1, 'a'),
-('SCH_000002', 'FLH_000002', 'ROU_000001', '2014-02-25 01:28:00', '2014-02-25 01:28:00', 'a', 'a', 1, 'a'),
-('SCH_000003', 'FLH_000001', 'ROU_000001', '2014-02-25 01:28:00', '2014-03-01 01:28:00', 'a', 'a', 1, 'a'),
-('SCH_000004', 'FLH_000002', 'ROU_000001', '2014-03-13 08:41:00', '2014-03-01 08:41:00', 'c', 'c', 1, ''),
-('SCH_000005', 'FLH_000001', 'ROU_000001', '2014-03-01 08:45:00', '2014-03-01 08:45:00', 'd', 'd', 1, ''),
-('SCH_000006', 'FLH_000001', 'ROU_000001', '2014-03-01 08:48:00', '2014-03-01 08:48:00', 'g', 'g', 1, ''),
-('SCH_000007', 'FLH_000001', 'ROU_000001', '2014-03-01 08:48:00', '2014-03-01 08:48:00', 'i', 'i', 1, ''),
-('SCH_000008', 'FLH_000001', 'ROU_000001', '2014-03-01 08:49:00', '2014-03-01 08:49:00', 'k', 'k', 1, ''),
-('SCH_000009', 'FLH_000002', 'ROU_000001', '2014-03-01 08:49:00', '2014-03-01 08:49:00', 'aa', 'aa', 1, ''),
-('SCH_000010', 'FLH_000002', 'ROU_000001', '2014-03-01 08:50:00', '2014-03-01 08:50:00', 'ccc', 'ccc', 1, '');
+('SCH_000001', 'FLH_000001', 'ROU_000001', '2014-02-06 10:00:00', '2014-02-07 09:30:00', 'aaaaa', 'aaaaa', 1, ''),
+('SCH_000002', 'FLH_000002', 'ROU_000001', '2014-02-25 01:28:00', '2014-02-25 01:28:00', 'cccccc', 'cccccc', 1, ''),
+('SCH_000003', 'FLH_000001', 'ROU_000001', '2014-03-02 01:01:00', '2014-03-02 01:01:00', 'b', 'b', 1, 'b'),
+('SCH_000004', 'FLH_000001', 'ROU_000001', '2014-03-19 08:09:00', '2014-03-04 20:07:00', 'a', '1a', 1, '');
 
 -- --------------------------------------------------------
 
@@ -229,8 +226,9 @@ INSERT INTO `seats` (`seat_id`, `schedule_id`, `seattype_id`, `no_of_seat`, `boo
 ('SET000001', 'SCH000001', 'STT_000002', 3, 0, '34.00'),
 ('SET000002', 'SCH000001', 'STT_000001', 5, 0, '54.00'),
 ('SET000003', 'SCH000002', 'STT_000001', 2, 0, '22.00'),
-('SET000004', 'SCH_000001', 'STT_000001', 3, 0, '3.00'),
-('SET000005', 'SCH_000001', 'STT_000002', 5, 0, '5.00');
+('SET000004', 'SCH_000001', 'STT_000001', 30, 0, '30.00'),
+('SET000005', 'SCH_000001', 'STT_000002', 5, 0, '5.00'),
+('SET000006', 'SCH_000003', 'STT_000001', 3, 0, '5.00');
 
 -- --------------------------------------------------------
 

@@ -1,7 +1,6 @@
 <?php include('includes/includefiles.php'); ?>
 
 <?php
-
 if (isset($_GET['action'])) {
     $action = $_GET['action'];
 } else {
@@ -17,9 +16,9 @@ if ($action == 'add2cart') {
     $seat_id = $_GET['seat_id'];
     $seattype_id = $_GET['seattype_id'];
     $seat_type = $_GET['seat_type'];
-    $price = $_GET['price'];    
-    
-    if ($objShoppingCart->insert($schedule_id,$seat_id,$seattype_id,$seat_type,$price)  == 1) {
+    $price = $_GET['price'];
+
+    if ($objShoppingCart->insert($schedule_id, $seat_id, $seattype_id, $seat_type, $price) == 1) {
         messageHelper::setMessage('Seat is successfully added to the booking.', MESSAGE_TYPE_SUCCESS);
     } else {
         messageHelper::setMessage('Error occured while adding seat to the booking.', MESSAGE_TYPE_ERROR);
@@ -38,6 +37,8 @@ if ($action == 'remove') {
 }
 ?>
 
+<?php $pageTitle = "Booking (Summary)"; ?>
+
 <?php include('includes/header.php'); ?>
 
 <link href="css/jquery.dataTables.css" rel="stylesheet" type="text/css" />
@@ -53,7 +54,13 @@ if ($action == 'remove') {
 </div>
 
 <div class="row">
-    <div class="col-md-12">
+    <div class="col-md-12">&nbsp;</div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">        
+    </div>
+    <div class="panel-body">
         <table id="seat_table">
             <thead>
                 <tr>
@@ -82,14 +89,10 @@ if ($action == 'remove') {
                 <?php } ?>                            
             </tbody>
         </table>
+        <br/>
+        <p class="text-right"><b>Sub Total : </b><?php echo $objShoppingCart->getSubTotal(); ?></p>
     </div>
-</div>                
-
-<div class="row">
-    <div class="col-md-12 text-right">
-        <p><b>Sub Total : </b><?php echo $objShoppingCart->getSubTotal(); ?></p>
-    </div>
-</div>           
+</div>                          
 
 <script type="text/javascript" src="js/datatable/jquery.dataTables.min.js"></script>
 <script type="text/javascript">

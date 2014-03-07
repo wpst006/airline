@@ -1,17 +1,29 @@
 <?php include('includes/includefiles.php'); ?>
+
+<?php $pageTitle="Booking"; ?>
 <?php include('includes/header.php'); ?>
+
+<style>
+    #route_id_chosen{
+        margin-top:5px;
+    }
+    
+    #btn-search{
+        width:20%;
+    }
+</style>
 
 <?php if (isset($_POST['route_id'])) { ?>
     <div id="selected_route_id" style="display:none;"><?php echo $_POST['route_id']; ?></div>
 <?php } ?>
-
+    
 <div class="row">
     <div class="col-md-12">
         <form role="form" id="booking" name="booking" action="booking.php" method="post" class="form-horizontal">                     
             
             <div class="form-group">
-                <label class="col-sm-3 control-label">Route :</label>
-                <div class="col-sm-9">
+                <label class="col-sm-2 control-label">Route :</label>
+                <div class="col-sm-10">
                     <?php
                     $route_sql = "SELECT * FROM routes " .
                             "ORDER BY title";
@@ -22,14 +34,9 @@
                             <option value="<?php echo $row['route_id']; ?>"><?php echo $row['title']; ?></option>
                         <?php } ?>
                     </select>
+                    <button type="submit" name="submitted" id="btn-search" class="btn btn-default btn-primary pull-right">Search</button>
                 </div>                            
             </div>                                   
-
-            <div class="form-group">
-                <div class="col-sm-offset-3 col-sm-9">
-                    <button type="submit" name="submitted" class="btn btn-default btn-primary">Search</button>
-                </div>                        
-            </div>
         </form>
     </div>
 </div>
@@ -47,7 +54,7 @@
 
 <script type="text/javascript">    
     $(document).ready(function(){
-        $(".chosen-select").chosen({width: "95%"}); 
+        $(".chosen-select").chosen({width: "75%"}); 
         
         if ($('#selected_route_id').length>0){
             $('#route_id').val($('#selected_route_id').html());

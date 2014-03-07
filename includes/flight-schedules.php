@@ -9,6 +9,10 @@
         padding:0px;
         margin:0px;
     }
+    
+    .btn-add-schedule{
+        margin-top:5px;
+    }
 </style>
 <?php
 //***************************************************************************************************************************
@@ -55,16 +59,14 @@ $noOfRows = mysql_num_rows($flight_result);
 
 if ($noOfRows == 0) {
     ?>
-    <div class="row">
-        <div class="col-md-12">   
-            <h2>No record found for selected Route.</h2>
-        </div>
-    </div>
+    <div class="alert alert-danger">No record found for selected Route.</div>
 <?php } else { ?>
     <?php while ($flightRow = mysql_fetch_array($flight_result)) { ?>
-        <div class="row">
-            <div class="col-md-12">            
-                <p class="flight-name"><?php echo $flightRow['name']; ?></p>            
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title"><?php echo $flightRow['name']; ?></h3>
+            </div>
+            <div class="panel-body">
                 <table class="schedule-table">
                     <thead>
                     <th>Departure Date Time</th>
@@ -113,7 +115,7 @@ if ($noOfRows == 0) {
                                     $linkText = "Seat SetUp";
                                 }
                                 ?>
-                                <td class="text-right">
+                                <td class="action-column">
                                     <a href="<?php echo $link; ?>"><?php echo $linkText; ?></a>
                                     <?php
                                     if ($mode == 'admin') {
@@ -129,11 +131,12 @@ if ($noOfRows == 0) {
                     </tbody>                
                 </table>
                 <?php
+                if ($isAdminLogIn == true) {
                 $addScheduleLink = "schedule.php?route_id=" . $route_id .
                         "&flight_id=" . $flightRow['flight_id'];
                 ?>
-                <a href="<?php echo $addScheduleLink; ?>" class="btn btn-primary pull-right">Add Schedule</a>
-                <br/>
+                <a href="<?php echo $addScheduleLink; ?>" class="btn btn-success btn-add-schedule pull-right">Add Schedule</a>
+                <?php } ?>
             </div>
         </div>
     <?php }//end of outer "while" loop ?>

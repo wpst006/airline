@@ -1,5 +1,7 @@
 <?php include('includes/includefiles.php'); ?>
 
+<?php $pageTitle="Booking (Checkout)"; ?>
+
 <?php include('includes/header.php'); ?>
 
 <?php
