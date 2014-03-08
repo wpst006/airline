@@ -9,7 +9,7 @@
 if (isset($_POST['submitted'])) {
 //*********************************************************************
     //Filling Data
-    $flight_id = autoID::getAutoID('seats', 'seat_id', 'SET', 6);
+    $flight_id = autoID::getAutoID('seats', 'seat_id', 'SET_', 6);
     $schedule_id = $_POST['schedule_id'];
     $seattype_id = $_POST['seattype_id'];
     $no_of_seat = $_POST['no_of_seat'];

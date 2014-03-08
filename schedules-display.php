@@ -2,12 +2,6 @@
 <?php include('includes/header.php'); ?>
 
 <link href="css/jquery.dataTables.css" rel="stylesheet" type="text/css" />
-
-<style>
-    .col2 {
-        width: 100%;
-    }
-</style>
     
 <div class="row">
     <div class="col-md-12">

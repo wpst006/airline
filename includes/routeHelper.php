@@ -79,6 +79,35 @@ class routeHelper {
         return $route_id;
     }
 
+    public static function getFlightsByRouteID($route_id){
+        $sql = "SELECT flights.*
+            FROM flights
+            WHERE flights.flight_id
+            IN (
+                SELECT schedules.flight_id
+                FROM schedules
+                WHERE route_id = '" . $route_id . "'
+            )";
+
+        $result = mysql_query($sql) or die(mysql_error());
+        $noOfRows=  mysql_num_rows($result);
+        
+        if ($noOfRows==0){
+            return null;
+        }
+        
+        $output = array();
+
+        while ($row = mysql_fetch_array($result)) {
+            $output[] = array(
+                'flight_id' => $row['flight_id'],
+                'name' => $row['name'],
+                'remark'=> $row['remark']
+            );
+        }
+
+        return $output;
+    }
 }
 
 ?>

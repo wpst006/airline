@@ -86,6 +86,14 @@ a.btn, a.btn:link, a.btn:visited {
     font-weight: bold;
     font-size:8pt;
 }
+
+#logo {
+    background:none !important;
+    text-indent: 0px !important;
+    color:white;
+    text-transform: none !important;
+    width:auto;
+}
 /*****************************************************************************************************************************************************************/
 table .action-column{
     text-align:right;

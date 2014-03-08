@@ -29,7 +29,7 @@
             <div class="main">
                 <header>
                     <div class="wrapper">
-                        <h1><a href="index.html" id="logo">AirLines</a>
+                        <h1><a href="index.php" id="logo">Comfy AirLine</a>
 <!--                            <span id="slogan">International Travel</span>-->
                         </h1>
                         <div class="right">

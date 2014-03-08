@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Mar 08, 2014 at 03:04 AM
+-- Generation Time: Mar 09, 2014 at 12:08 AM
 -- Server version: 5.5.24-log
 -- PHP Version: 5.3.13
 
@@ -33,17 +33,18 @@ CREATE TABLE IF NOT EXISTS `bookingdetails` (
   `no_of_seats` int(3) NOT NULL,
   `price` decimal(10,2) NOT NULL,
   PRIMARY KEY (`bookingdetail_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=7 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
 
 --
 -- Dumping data for table `bookingdetails`
 --
 
 INSERT INTO `bookingdetails` (`bookingdetail_id`, `booking_id`, `seat_id`, `no_of_seats`, `price`) VALUES
-(3, '1271499799', 'SET000005', 1, '5.00'),
-(4, '1271499799', 'SET000004', 1, '3.00'),
-(5, '1244330429', 'SET000005', 1, '5.00'),
-(6, '1216595412', 'SET000005', 1, '5.00');
+(3, '1271499799', 'SET_000005', 1, '5.00'),
+(4, '1271499799', 'SET_000004', 1, '3.00'),
+(5, '1244330429', 'SET_000005', 1, '5.00'),
+(6, '1216595412', 'SET_000005', 1, '5.00'),
+(7, '1250725906', 'SET_000005', 1, '5.00');
 
 -- --------------------------------------------------------
 
@@ -65,10 +66,39 @@ CREATE TABLE IF NOT EXISTS `bookings` (
 --
 
 INSERT INTO `bookings` (`booking_id`, `bookingdate`, `customer_id`, `total`, `status`) VALUES
-('1216595412', '2014-03-08 00:00:58', 'CUS000002', '5.00', 1),
-('1244330429', '2014-03-01 23:50:42', 'CUS000002', '5.00', 1),
-('1271499799', '2014-03-01 23:49:00', 'CUS000002', '8.00', NULL);
+('1216595412', '2014-03-08 00:00:58', 'CUS_000002', '5.00', 1),
+('1244330429', '2014-03-01 23:50:42', 'CUS_000003', '5.00', 1),
+('1250725906', '2014-03-08 03:07:58', 'CUS_000002', '5.00', 1),
+('1271499799', '2014-03-01 23:49:00', 'CUS_000002', '8.00', 1);
 
+-- --------------------------------------------------------
+
+--
+-- Stand-in structure for view `bookings_view`
+--
+CREATE TABLE IF NOT EXISTS `bookings_view` (
+`bookingdetail_id` int(11) unsigned
+,`booking_id` varchar(15)
+,`seat_id` varchar(15)
+,`no_of_seats` int(3)
+,`price` decimal(10,2)
+,`seat_title` varchar(50)
+,`schedule_id` varchar(15)
+,`flight_id` varchar(15)
+,`route_id` varchar(15)
+,`departure_datetime` datetime
+,`arrival_datetime` datetime
+,`departure_airport` varchar(50)
+,`arrival_airport` varchar(50)
+,`active` int(1)
+,`remark` varchar(255)
+,`name` varchar(50)
+,`flight_remark` varchar(255)
+,`title` varchar(50)
+,`hour` int(2)
+,`min` int(2)
+,`route_remark` varchar(255)
+);
 -- --------------------------------------------------------
 
 --
@@ -96,7 +126,8 @@ CREATE TABLE IF NOT EXISTS `customers` (
 
 INSERT INTO `customers` (`customer_id`, `firstname`, `lastname`, `gender`, `DOB`, `nrc_no`, `phone_no`, `street`, `city`, `country`, `post_code`) VALUES
 ('CUS_000001', 'admin', 'admin', '', '0000-00-00 00:00:00', '', '', '', '', '', ''),
-('CUS_000002', 'a', 'a', 'M', '1990-01-02 00:00:00', 'a', 'a', 'a', 'a', 'a', 'a');
+('CUS_000002', 'a', 'a', 'M', '1990-01-02 00:00:00', 'a', 'a', 'a', 'a', 'a', 'a'),
+('CUS_000003', 'b', 'b', 'M', '2014-03-08 00:00:00', 'b', 'b', 'b', 'b', 'b', 'b');
 
 -- --------------------------------------------------------
 
@@ -117,7 +148,8 @@ CREATE TABLE IF NOT EXISTS `flights` (
 
 INSERT INTO `flights` (`flight_id`, `name`, `remark`) VALUES
 ('FLH_000001', 'Air Bagan', 'aaa'),
-('FLH_000002', 'Air KBZ', '');
+('FLH_000002', 'Air KBZ', ''),
+('FLH_000003', 'r', 'rr');
 
 -- --------------------------------------------------------
 
@@ -143,7 +175,8 @@ CREATE TABLE IF NOT EXISTS `payments` (
 INSERT INTO `payments` (`payment_id`, `paymentdate`, `booking_id`, `cardno`, `cardtype`, `cardholdername`, `securitycode`) VALUES
 ('1125316184', '2014-03-08 00:00:58', '1216595412', 'a', 'mastercard', 'a', 'asdf'),
 ('1191387565', '2014-03-01 23:49:00', '1271499799', 'a', 'mastercard', 'a', 'asd'),
-('1310702882', '2014-03-01 23:50:42', '1244330429', 'b', 'mastercard', 'b', 'b');
+('1310702882', '2014-03-01 23:50:42', '1244330429', 'b', 'mastercard', 'b', 'b'),
+('1356401797', '2014-03-08 03:07:58', '1250725906', 'a', 'mastercard', 'a', 'a');
 
 -- --------------------------------------------------------
 
@@ -201,8 +234,32 @@ INSERT INTO `schedules` (`schedule_id`, `flight_id`, `route_id`, `departure_date
 ('SCH_000003', 'FLH_000001', 'ROU_000002', '2014-03-08 03:00:00', '2014-03-08 03:00:00', 'aaaaa', 'a', 1, ''),
 ('SCH_000004', 'FLH_000001', 'ROU_000008', '2014-03-08 03:01:00', '2014-03-08 03:01:00', 'aaaaa', 'aaaaaaaaaaa', 1, ''),
 ('SCH_000005', 'FLH_000001', 'ROU_000008', '2014-03-08 03:01:00', '2014-03-08 03:01:00', 'aaaaa', 'adsf', 1, ''),
-('SCH_000006', 'FLH_000002', 'ROU_000003', '2014-03-08 03:04:00', '2014-03-08 03:04:00', 'a', 'a', 1, '');
+('SCH_000006', 'FLH_000002', 'ROU_000003', '2014-03-08 03:04:00', '2014-03-08 03:04:00', 'a', 'a', 1, ''),
+('SCH_000007', 'FLH_000003', 'ROU_000004', '2014-03-08 03:08:00', '2014-03-08 03:08:00', 'a', 'a', 1, ''),
+('SCH_000008', 'FLH_000003', 'ROU_000004', '2014-03-08 03:08:00', '2014-03-08 03:08:00', 'b', 'b', 1, '');
 
+-- --------------------------------------------------------
+
+--
+-- Stand-in structure for view `schedules_view`
+--
+CREATE TABLE IF NOT EXISTS `schedules_view` (
+`schedule_id` varchar(15)
+,`flight_id` varchar(15)
+,`route_id` varchar(15)
+,`departure_datetime` datetime
+,`arrival_datetime` datetime
+,`departure_airport` varchar(50)
+,`arrival_airport` varchar(50)
+,`active` int(1)
+,`remark` varchar(255)
+,`name` varchar(50)
+,`flight_remark` varchar(255)
+,`title` varchar(50)
+,`hour` int(2)
+,`min` int(2)
+,`route_remark` varchar(255)
+);
 -- --------------------------------------------------------
 
 --
@@ -224,13 +281,13 @@ CREATE TABLE IF NOT EXISTS `seats` (
 --
 
 INSERT INTO `seats` (`seat_id`, `schedule_id`, `seattype_id`, `no_of_seat`, `booked_seat`, `price`) VALUES
-('SET000001', 'SCH000001', 'STT_000002', 3, 0, '34.00'),
-('SET000002', 'SCH000001', 'STT_000001', 5, 0, '54.00'),
-('SET000003', 'SCH000002', 'STT_000001', 2, 0, '22.00'),
-('SET000004', 'SCH_000001', 'STT_000001', 30, 0, '30.00'),
-('SET000005', 'SCH_000001', 'STT_000002', 5, 0, '5.00'),
-('SET000006', 'SCH_000003', 'STT_000001', 3, 0, '5.00'),
-('SET000007', 'SCH_000005', 'STT_000002', 30, 0, '33.00');
+('SET_000001', 'SCH_000001', 'STT_000002', 3, 0, '34.00'),
+('SET_000002', 'SCH_000001', 'STT_000001', 5, 0, '54.00'),
+('SET_000003', 'SCH_000002', 'STT_000001', 2, 0, '22.00'),
+('SET_000004', 'SCH_000001', 'STT_000001', 30, 0, '30.00'),
+('SET_000005', 'SCH_000001', 'STT_000002', 5, 0, '5.00'),
+('SET_000006', 'SCH_000003', 'STT_000001', 3, 0, '5.00'),
+('SET_000007', 'SCH_000005', 'STT_000002', 30, 0, '33.00');
 
 -- --------------------------------------------------------
 
@@ -273,7 +330,26 @@ CREATE TABLE IF NOT EXISTS `users` (
 
 INSERT INTO `users` (`user_id`, `username`, `email`, `password`, `role`) VALUES
 ('CUS_000001', 'admin', 'admin@gmail.com', 'admin', 'admin'),
-('CUS_000002', 'a', 'a@gmail.com', 'a', 'member');
+('CUS_000002', 'a', 'a@gmail.com', 'a', 'member'),
+('CUS_000003', 'b', 'b@gmail.com', 'b', 'member');
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `bookings_view`
+--
+DROP TABLE IF EXISTS `bookings_view`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `bookings_view` AS select `bookingdetails`.`bookingdetail_id` AS `bookingdetail_id`,`bookingdetails`.`booking_id` AS `booking_id`,`bookingdetails`.`seat_id` AS `seat_id`,`bookingdetails`.`no_of_seats` AS `no_of_seats`,`bookingdetails`.`price` AS `price`,`seat_types`.`title` AS `seat_title`,`schedules_view`.`schedule_id` AS `schedule_id`,`schedules_view`.`flight_id` AS `flight_id`,`schedules_view`.`route_id` AS `route_id`,`schedules_view`.`departure_datetime` AS `departure_datetime`,`schedules_view`.`arrival_datetime` AS `arrival_datetime`,`schedules_view`.`departure_airport` AS `departure_airport`,`schedules_view`.`arrival_airport` AS `arrival_airport`,`schedules_view`.`active` AS `active`,`schedules_view`.`remark` AS `remark`,`schedules_view`.`name` AS `name`,`schedules_view`.`flight_remark` AS `flight_remark`,`schedules_view`.`title` AS `title`,`schedules_view`.`hour` AS `hour`,`schedules_view`.`min` AS `min`,`schedules_view`.`route_remark` AS `route_remark` from (((`bookingdetails` join `seats` on((`bookingdetails`.`seat_id` = `seats`.`seat_id`))) join `schedules_view` on((`seats`.`schedule_id` = `schedules_view`.`schedule_id`))) join `seat_types` on((`seats`.`seattype_id` = `seat_types`.`seattype_id`))) order by `bookingdetails`.`bookingdetail_id`;
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `schedules_view`
+--
+DROP TABLE IF EXISTS `schedules_view`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `schedules_view` AS select `schedules`.`schedule_id` AS `schedule_id`,`schedules`.`flight_id` AS `flight_id`,`schedules`.`route_id` AS `route_id`,`schedules`.`departure_datetime` AS `departure_datetime`,`schedules`.`arrival_datetime` AS `arrival_datetime`,`schedules`.`departure_airport` AS `departure_airport`,`schedules`.`arrival_airport` AS `arrival_airport`,`schedules`.`active` AS `active`,`schedules`.`remark` AS `remark`,`flights`.`name` AS `name`,`flights`.`remark` AS `flight_remark`,`routes`.`title` AS `title`,`routes`.`hour` AS `hour`,`routes`.`min` AS `min`,`routes`.`remark` AS `route_remark` from ((`schedules` join `flights` on((`schedules`.`flight_id` = `flights`.`flight_id`))) join `routes` on((`schedules`.`route_id` = `routes`.`route_id`))) order by `schedules`.`schedule_id`;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
