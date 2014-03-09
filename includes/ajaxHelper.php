@@ -1,5 +1,4 @@
 <?php
-
 class ajaxHelper {
 
     public static function responseSuccess($data=null) {

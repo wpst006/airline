@@ -1,5 +1,4 @@
 <?php include('includes/includefiles.php'); ?>
-
 <?php
 if (isset($_POST['submitted'])) {
     //**************************************************************************************
@@ -15,7 +14,7 @@ if (isset($_POST['submitted'])) {
         messageHelper::setMessage("Invalid User Name and Password",MESSAGE_TYPE_ERROR);
     } else {
         messageHelper::setMessage("You have successfully logged in",MESSAGE_TYPE_SUCCESS);
-        header("Location:index.php");    
+        header("Location:index.php");
         exit();
     }
 }
@@ -40,7 +39,7 @@ if (isset($_POST['submitted'])) {
                 <div class="col-sm-9">
                     <input type="password" id="password" name="password" class="form-control" value="" maxlength="30"/>
                 </div>
-            </div>                  
+            </div>
 
             <div class="form-group">
                 <div class="col-sm-offset-3 col-sm-9">
@@ -56,20 +55,20 @@ if (isset($_POST['submitted'])) {
 <script type="text/javascript">
     $("#login").validate({
         rules: {
-            username: 
+            username:
                 {
                 required: true
             },
-            password: 
+            password:
                 {
                 required: true
-            },            
+            },
         },
         //set messages to appear inline
-        messages: 
+        messages:
             {
             username: "Please enter user name.",
-            password: "Please enter a password.",                   
+            password: "Please enter a password.",
         }
     });
 </script>

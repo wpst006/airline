@@ -1,9 +1,4 @@
 <?php include('includes/includefiles.php'); ?>
-
-<?php $pageTitle="Booking (Checkout)"; ?>
-
-<?php include('includes/header.php'); ?>
-
 <?php
 $objShoppingCart = new ShoppingCart();
 $shoppingCartData = $objShoppingCart->getShoppingCart();
@@ -33,18 +28,18 @@ if (isset($_POST['submitted'])) {
     $bookingInsert_sql = "INSERT INTO " .
             "bookings(booking_id,bookingdate,customer_Id,total,status) " .
             "VALUES('$booking_id','" . date('Y-m-d H:i:s') . "','$customer_id',$total,1)";
-    
+
     mysql_query($bookingInsert_sql) or die(mysql_error());
-    //******************************************************************************************************************************************        
+    //******************************************************************************************************************************************
     foreach ($shoppingCartData as $index=>$shoppingCartItem){
         $flight_id=$shoppingCartItem['seat_id'];
         $no_of_seat_to_book=$shoppingCartItem['no_of_seat_to_book'];
         $price=$shoppingCartItem['price'];
-        
+
         $bookingDetailInsert_sql = "INSERT INTO " .
             "bookingdetails(booking_id,seat_id,no_of_seats,price) " .
             "VALUES('$booking_id','$flight_id',$no_of_seat_to_book,$price)";
-    
+
         mysql_query($bookingDetailInsert_sql) or die(mysql_error());
     }
     //******************************************************************************************************************************************
@@ -60,9 +55,12 @@ if (isset($_POST['submitted'])) {
     if (count($shoppingCartData) == 0) {
         $message = 'There is no item in shopping cart. Please Try again.';
         messageHelper::setMessage($message, MESSAGE_TYPE_ERROR);
-    }   
+    }
 }
 ?>
+
+<?php $pageTitle="Booking (Checkout)"; ?>
+<?php include('includes/header.php'); ?>
 
 <div class="row">
     <div class="col-md-12">
@@ -125,34 +123,34 @@ if (isset($_POST['submitted'])) {
                 <div class="col-sm-offset-3 col-sm-9">
                     <button type="submit" name="submitted" class="btn btn-default btn-primary">Check Out</button>
                     <button type="reset" name="reset"  class="btn btn-default">Reset</button>
-                </div>                        
+                </div>
             </div>
         </form>
     </div>
-</div>                           
+</div>
 
 <script type="text/javascript">
     $("#checkout").validate({
         rules: {
-            cardno: 
+            cardno:
                 {
                 required: true
             },
-            cardholdername: 
+            cardholdername:
                 {
                 required: true
             },
-            securitycode: 
+            securitycode:
                 {
                 required: true
-            },            
+            },
         },
         //set messages to appear inline
-        messages: 
+        messages:
             {
             cardno: "Please enter card number.",
             cardholdername: "Please enter card holder name.",
-            securitycode: "Please enter security code.",                     
+            securitycode: "Please enter security code.",
         }
     });
 </script>

@@ -1,7 +1,5 @@
 <?php include('includes/includefiles.php'); ?>
 <?php require_once('includes/scheduleHelper.php'); ?>
-<link href="css/jquery.dataTables.css" rel="stylesheet" type="text/css" />
-
 <?php
 if ($isLoggedIn == false) {
     messageHelper::setMessage("You are not logged into the system. Please log in to continue.", MESSAGE_TYPE_INFO);
@@ -13,6 +11,8 @@ if ($isLoggedIn == false) {
 <?php $pageTitle = "Booking (Select Seat Type)"; ?>
 
 <?php include('includes/header.php'); ?>
+
+<link href="css/jquery.dataTables.css" rel="stylesheet" type="text/css" />
 
 <div class="panel panel-default">
     <div class="panel-heading">

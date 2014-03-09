@@ -12,4 +12,4 @@ require_once("includes/ajaxHelper.php");
 
 $objLogIn = new logIn;
 $isLoggedIn = $objLogIn->isLoggedIn();
-?>   
+?>

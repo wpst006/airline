@@ -75,12 +75,12 @@ class scheduleHelper{
 
         $result = mysql_query($sql) or die(mysql_error());
         
-        if (mysql_num_rows($result)==0){
-            return null;
-        }
-        
         $output=array(); 
-                        
+        
+        if (mysql_num_rows($result)==0){
+            return $output;
+        }
+                                        
         while ($row = mysql_fetch_array($result)){
             $output[]=array(
                 'schedule_id'=>$row['schedule_id'],

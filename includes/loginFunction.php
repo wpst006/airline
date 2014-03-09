@@ -45,27 +45,27 @@ class logIn {
             return true;
         }
         //Checking "role"
-        //such as "member" or "admin"			
+        //such as "member" or "admin"
         if ($role !== $_SESSION['user']['role'])
             return false;
 
         return true;
     }
-    
+
     function getLoggedInUserInfo(){
         if (!isset($_SESSION['user']))
             return null;
 
         if (!isset($_SESSION['user']['role']))
             return null;
-			
+
         $output=array(
             'user_id'=>$_SESSION['user']['user_id'],
             'username'=>$_SESSION['user']['username'] ,
             'password'=>$_SESSION['user']['password'],
-            'role'=>$_SESSION['user']['role'] 
+            'role'=>$_SESSION['user']['role']
         );
-        
+
         return $output;
     }
 }

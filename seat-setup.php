@@ -1,10 +1,5 @@
 <?php include('includes/includefiles.php'); ?>
 <?php require_once('includes/scheduleHelper.php'); ?>
-
-<?php $pageTitle="Seat Setup"; ?>
-
-<?php include('includes/header.php'); ?>
-
 <?php
 if (isset($_POST['submitted'])) {
 //*********************************************************************
@@ -68,6 +63,9 @@ function saveSeats($seat_id, $schedule_id, $seattype_id, $no_of_seat, $price) {
 }
 ?>
 
+<?php $pageTitle="Seat Setup"; ?>
+<?php include('includes/header.php'); ?>
+
 <link href="css/jquery.dataTables.css" rel="stylesheet" type="text/css" />
 <div class="row">
     <div class="col-md-12">
@@ -78,21 +76,21 @@ function saveSeats($seat_id, $schedule_id, $seattype_id, $no_of_seat, $price) {
             <?php
             $scheduleData=  scheduleHelper::getScheduleByScheduleID($schedule_id);
             ?>
-            
+
             <div class="form-group">
                 <label class="col-sm-3 control-label">Route</label>
                 <div class="col-sm-9">
-                    <p id="title" class="form-control-static"><?php echo $scheduleData[0]['route_title']; ?></p>                    
+                    <p id="title" class="form-control-static"><?php echo $scheduleData[0]['route_title']; ?></p>
                 </div>
             </div>
 
             <div class="form-group">
                 <label class="col-sm-3 control-label">Flight</label>
                 <div class="col-sm-9">
-                    <p id="title" class="form-control-static"><?php echo $scheduleData[0]['flight_name']; ?></p>                    
+                    <p id="title" class="form-control-static"><?php echo $scheduleData[0]['flight_name']; ?></p>
                 </div>
             </div>
-            
+
             <div class="form-group">
                 <div class="col-sm-3 control-label">Seat Type :</div>
                 <div class="col-sm-9">
@@ -107,7 +105,7 @@ function saveSeats($seat_id, $schedule_id, $seattype_id, $no_of_seat, $price) {
                         <?php } ?>
                     </select>
                 </div>
-            </div>          
+            </div>
 
             <div class="form-group">
                 <div class="col-sm-3 control-label">No of seats (Available) :</div>
@@ -127,7 +125,7 @@ function saveSeats($seat_id, $schedule_id, $seattype_id, $no_of_seat, $price) {
                 <div class="col-sm-offset-3 col-sm-9">
                     <button type="submit" name="submitted" class="btn btn-default btn-primary">Save</button>
                     <button type="reset" name="reset"  class="btn btn-default">Reset</button>
-                </div>                        
+                </div>
             </div>
         </form>
     </div>
@@ -162,36 +160,36 @@ function saveSeats($seat_id, $schedule_id, $seattype_id, $no_of_seat, $price) {
 
 <script type="text/javascript">
     $(document).ready(function(){
-        $(".chosen-select").chosen({width: "100%"}); 
-        
+        $(".chosen-select").chosen({width: "100%"});
+
         $("#seat_setup").validate({
             rules: {
-                no_of_seat: 
+                no_of_seat:
                     {
                     required: true,
                     number: true,
                     min: 1
-                }, 
-                price: 
+                },
+                price:
                     {
                     required: true,
                     number: true,
                     min: 1.0
-                },   
+                },
             },
             //set messages to appear inline
-            messages: 
+            messages:
                 {
-                no_of_seat: 
+                no_of_seat:
                     {
                     required: "Please Enter Number of Seats (Available).",
                     number: "Please enter valid number for Number of Seats (Available).",
-                },   
-                price: 
+                },
+                price:
                     {
                     required: "Please Enter Price.",
                     number: "Please enter valid number for Price.",
-                }, 
+                },
             }
         });
     });
@@ -208,35 +206,35 @@ function saveSeats($seat_id, $schedule_id, $seattype_id, $no_of_seat, $price) {
             "bFilter": false,
             "bInfo": false,
         } );
-        
+
         $('#seattype_id').change(function(){
             retrieveSeatInfo();
         });
-        
+
         retrieveSeatInfo();
     });
-    
+
     function retrieveSeatInfo(){
         var schedule_id=$('#schedule_id').val();
         var seattype_id=$('#seattype_id').val();
-        
+
         $.ajax({
             url: "ajax_getseat.php?schedule_id=" + schedule_id + "&seattype_id=" + seattype_id,
             type: "POST",
             dataType: "json",
             //data: $('#passcode_form').serialize(),
             cache:false,
-            success: function(result){ 
+            success: function(result){
                 if (result.success==true){
                     $('#no_of_seat').val(result.data.no_of_seat);
                     $('#price').val(result.data.price);
                 }else{
                     $('#no_of_seat').val('');
                     $('#price').val('');
-                }            
+                }
             },
             error: function(error){
-                console.log("ERROR","Error occured while sending request.","warning",0);    
+                console.log("ERROR","Error occured while sending request.","warning",0);
                 //console.log(error);
             }
         });

@@ -92,12 +92,12 @@ class routeHelper {
         $result = mysql_query($sql) or die(mysql_error());
         $noOfRows=  mysql_num_rows($result);
         
-        if ($noOfRows==0){
-            return null;
-        }
-        
         $output = array();
-
+        
+        if ($noOfRows==0){
+            return $output;
+        }
+              
         while ($row = mysql_fetch_array($result)) {
             $output[] = array(
                 'flight_id' => $row['flight_id'],

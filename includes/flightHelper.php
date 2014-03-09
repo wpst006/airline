@@ -1,5 +1,4 @@
 <?php
-
 class flightHelper {
 
     public static function getFlightNameByFligthID($flight_id) {

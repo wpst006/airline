@@ -18,7 +18,7 @@ class autoID {
             $oldID = $row[$fieldName]; //Reading Last ID
             $oldID = str_replace($prefix, "", $oldID); //Removing "Prefix"
             $value = (int) $oldID; //Convert to Integer
-            $value++; //Increment		
+            $value++; //Increment
             $newID = $prefix . autoID::numberFormatter($value, $noOfLeadingZeros);
             return $newID;
         }
@@ -42,10 +42,10 @@ class autoID {
         if ($noOfRow < 1) {
             return $month . $year . "000001";
         } else {
-            $oldID = $row[$primaryKeyName]; //Reading Last ID		
+            $oldID = $row[$primaryKeyName]; //Reading Last ID
             $oldID = substr($oldID, 6, $noOfLeadingZeros);
             $value = (int) $oldID; //Convert to Integer
-            $value++; //Increment		
+            $value++; //Increment
             $newID = $month . $year . autoID::numberFormatter($value, $noOfLeadingZeros);
             return $newID;
         }
@@ -54,15 +54,15 @@ class autoID {
     static function numberFormatter($number, $n) {
         return str_pad((int) $number, $n, "0", STR_PAD_LEFT);
     }
-    
+
     static function get_booking_id(){
         return autoID::get_transcation_id();
     }
-    
+
     static function get_payment_id(){
         return autoID::get_transcation_id();
     }
-    
+
     static function get_transcation_id(){
         return rand(1111111111,9999999999);
     }

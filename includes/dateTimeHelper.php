@@ -1,5 +1,4 @@
 <?php
-
 class dateTimeHelper {
 
     public static function getDateTimeForUI($stringValue = null) {
@@ -11,5 +10,4 @@ class dateTimeHelper {
     }
 
 }
-
 ?>

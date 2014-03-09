@@ -2,7 +2,6 @@
 <?php require_once("includes/routeHelper.php"); ?>
 <?php require_once("includes/flightHelper.php"); ?>
 <?php require_once("includes/scheduleHelper.php"); ?>
-
 <?php
 if (isset($_POST['submitted'])) {
     //var_dump($_POST);exit();

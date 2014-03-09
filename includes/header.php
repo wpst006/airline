@@ -48,6 +48,7 @@
                                     <?php if ($objLogIn->isAdminLogIn() == true) { ?>
                                         <li><a href="flights.php">Flight</a></li>
                                         <li><a href="routes.php">Route</a></li>
+                                        <li><a href="reports.php">Reports</a></li>
                                     <?php } ?>
                                 </ul>
                             </nav>

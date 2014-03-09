@@ -1,6 +1,5 @@
 <?php include('includes/includefiles.php'); ?>
 <?php require_once('includes/flightHelper.php'); ?>
-
 <?php
 if (isset($_POST['submitted'])) {
     //*********************************************************************
