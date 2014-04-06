@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Mar 09, 2014 at 12:08 AM
+-- Generation Time: Apr 06, 2014 at 12:32 PM
 -- Server version: 5.5.24-log
 -- PHP Version: 5.3.13
 
@@ -33,18 +33,14 @@ CREATE TABLE IF NOT EXISTS `bookingdetails` (
   `no_of_seats` int(3) NOT NULL,
   `price` decimal(10,2) NOT NULL,
   PRIMARY KEY (`bookingdetail_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=16 ;
 
 --
 -- Dumping data for table `bookingdetails`
 --
 
 INSERT INTO `bookingdetails` (`bookingdetail_id`, `booking_id`, `seat_id`, `no_of_seats`, `price`) VALUES
-(3, '1271499799', 'SET_000005', 1, '5.00'),
-(4, '1271499799', 'SET_000004', 1, '3.00'),
-(5, '1244330429', 'SET_000005', 1, '5.00'),
-(6, '1216595412', 'SET_000005', 1, '5.00'),
-(7, '1250725906', 'SET_000005', 1, '5.00');
+(15, '1306725096', 'SET_000001', 1, '100.00');
 
 -- --------------------------------------------------------
 
@@ -66,10 +62,7 @@ CREATE TABLE IF NOT EXISTS `bookings` (
 --
 
 INSERT INTO `bookings` (`booking_id`, `bookingdate`, `customer_id`, `total`, `status`) VALUES
-('1216595412', '2014-03-08 00:00:58', 'CUS_000002', '5.00', 1),
-('1244330429', '2014-03-01 23:50:42', 'CUS_000003', '5.00', 1),
-('1250725906', '2014-03-08 03:07:58', 'CUS_000002', '5.00', 1),
-('1271499799', '2014-03-01 23:49:00', 'CUS_000002', '8.00', 1);
+('1306725096', '2014-03-22 18:30:17', 'CUS_000002', '100.00', 1);
 
 -- --------------------------------------------------------
 
@@ -125,9 +118,9 @@ CREATE TABLE IF NOT EXISTS `customers` (
 --
 
 INSERT INTO `customers` (`customer_id`, `firstname`, `lastname`, `gender`, `DOB`, `nrc_no`, `phone_no`, `street`, `city`, `country`, `post_code`) VALUES
-('CUS_000001', 'admin', 'admin', '', '0000-00-00 00:00:00', '', '', '', '', '', ''),
 ('CUS_000002', 'a', 'a', 'M', '1990-01-02 00:00:00', 'a', 'a', 'a', 'a', 'a', 'a'),
-('CUS_000003', 'b', 'b', 'M', '2014-03-08 00:00:00', 'b', 'b', 'b', 'b', 'b', 'b');
+('CUS_000003', 'b', 'b', 'M', '2014-03-08 00:00:00', 'b', 'b', 'b', 'b', 'b', 'b'),
+('CUS_000004', 'c', 'c', 'M', '2014-03-22 00:00:00', 'c', 'c', 'c', 'c', 'c', 'c');
 
 -- --------------------------------------------------------
 
@@ -147,9 +140,9 @@ CREATE TABLE IF NOT EXISTS `flights` (
 --
 
 INSERT INTO `flights` (`flight_id`, `name`, `remark`) VALUES
-('FLH_000001', 'Air Bagan', 'aaa'),
+('FLH_000001', 'Air Bagan', ''),
 ('FLH_000002', 'Air KBZ', ''),
-('FLH_000003', 'r', 'rr');
+('FLH_000004', 'Myanmar Airway', '');
 
 -- --------------------------------------------------------
 
@@ -173,10 +166,7 @@ CREATE TABLE IF NOT EXISTS `payments` (
 --
 
 INSERT INTO `payments` (`payment_id`, `paymentdate`, `booking_id`, `cardno`, `cardtype`, `cardholdername`, `securitycode`) VALUES
-('1125316184', '2014-03-08 00:00:58', '1216595412', 'a', 'mastercard', 'a', 'asdf'),
-('1191387565', '2014-03-01 23:49:00', '1271499799', 'a', 'mastercard', 'a', 'asd'),
-('1310702882', '2014-03-01 23:50:42', '1244330429', 'b', 'mastercard', 'b', 'b'),
-('1356401797', '2014-03-08 03:07:58', '1250725906', 'a', 'mastercard', 'a', 'a');
+('1327517236', '2014-03-22 18:30:17', '1306725096', 'a', 'mastercard', 'a', 'a');
 
 -- --------------------------------------------------------
 
@@ -201,9 +191,7 @@ INSERT INTO `routes` (`route_id`, `title`, `hour`, `min`, `remark`) VALUES
 ('ROU_000001', 'Yangon - Mandalay', 1, 30, ''),
 ('ROU_000002', 'Yangon - Nay Pyi Daw', 0, 45, ''),
 ('ROU_000003', 'Yangon - Mandalay - Taunggyi', 2, 10, ''),
-('ROU_000004', 'Yangon - Pathein', 0, 50, ''),
-('ROU_000008', 'aa11', 1, 10, ''),
-('ROU_000009', 'a', 1, 20, 'aa');
+('ROU_000004', 'Yangon - Pathein', 0, 50, '');
 
 -- --------------------------------------------------------
 
@@ -229,14 +217,8 @@ CREATE TABLE IF NOT EXISTS `schedules` (
 --
 
 INSERT INTO `schedules` (`schedule_id`, `flight_id`, `route_id`, `departure_datetime`, `arrival_datetime`, `departure_airport`, `arrival_airport`, `active`, `remark`) VALUES
-('SCH_000001', 'FLH_000001', 'ROU_000001', '2014-02-06 10:00:00', '2014-02-07 09:30:00', 'aaaaa', 'aaaaa', 1, ''),
-('SCH_000002', 'FLH_000002', 'ROU_000001', '2014-02-25 01:28:00', '2014-02-25 01:28:00', 'cccccc', 'cccccc', 1, ''),
-('SCH_000003', 'FLH_000001', 'ROU_000002', '2014-03-08 03:00:00', '2014-03-08 03:00:00', 'aaaaa', 'a', 1, ''),
-('SCH_000004', 'FLH_000001', 'ROU_000008', '2014-03-08 03:01:00', '2014-03-08 03:01:00', 'aaaaa', 'aaaaaaaaaaa', 1, ''),
-('SCH_000005', 'FLH_000001', 'ROU_000008', '2014-03-08 03:01:00', '2014-03-08 03:01:00', 'aaaaa', 'adsf', 1, ''),
-('SCH_000006', 'FLH_000002', 'ROU_000003', '2014-03-08 03:04:00', '2014-03-08 03:04:00', 'a', 'a', 1, ''),
-('SCH_000007', 'FLH_000003', 'ROU_000004', '2014-03-08 03:08:00', '2014-03-08 03:08:00', 'a', 'a', 1, ''),
-('SCH_000008', 'FLH_000003', 'ROU_000004', '2014-03-08 03:08:00', '2014-03-08 03:08:00', 'b', 'b', 1, '');
+('SCH_000001', 'FLH_000001', 'ROU_000001', '2014-04-01 10:30:00', '2014-04-01 11:30:00', 'Yangon', 'Mandalay', 1, ''),
+('SCH_000002', 'FLH_000002', 'ROU_000001', '2014-04-03 09:00:00', '2014-04-03 10:00:00', 'Yangon', 'Mandalay', 1, '');
 
 -- --------------------------------------------------------
 
@@ -281,13 +263,10 @@ CREATE TABLE IF NOT EXISTS `seats` (
 --
 
 INSERT INTO `seats` (`seat_id`, `schedule_id`, `seattype_id`, `no_of_seat`, `booked_seat`, `price`) VALUES
-('SET_000001', 'SCH_000001', 'STT_000002', 3, 0, '34.00'),
-('SET_000002', 'SCH_000001', 'STT_000001', 5, 0, '54.00'),
-('SET_000003', 'SCH_000002', 'STT_000001', 2, 0, '22.00'),
-('SET_000004', 'SCH_000001', 'STT_000001', 30, 0, '30.00'),
-('SET_000005', 'SCH_000001', 'STT_000002', 5, 0, '5.00'),
-('SET_000006', 'SCH_000003', 'STT_000001', 3, 0, '5.00'),
-('SET_000007', 'SCH_000005', 'STT_000002', 30, 0, '33.00');
+('SET_000001', 'SCH_000001', 'STT_000002', 10, 1, '100.00'),
+('SET_000002', 'SCH_000001', 'STT_000001', 5, 0, '200.00'),
+('SET_000003', 'SCH_000002', 'STT_000002', 20, 0, '120.00'),
+('SET_000004', 'SCH_000002', 'STT_000001', 10, 0, '250.00');
 
 -- --------------------------------------------------------
 
@@ -331,7 +310,8 @@ CREATE TABLE IF NOT EXISTS `users` (
 INSERT INTO `users` (`user_id`, `username`, `email`, `password`, `role`) VALUES
 ('CUS_000001', 'admin', 'admin@gmail.com', 'admin', 'admin'),
 ('CUS_000002', 'a', 'a@gmail.com', 'a', 'member'),
-('CUS_000003', 'b', 'b@gmail.com', 'b', 'member');
+('CUS_000003', 'b', 'b@gmail.com', 'b', 'member'),
+('CUS_000004', 'c', 'c@gmail.com', 'c', 'member');
 
 -- --------------------------------------------------------
 

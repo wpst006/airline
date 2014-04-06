@@ -38,9 +38,9 @@ $pdf->SetFont('Times', 'B', 16);
 
 $route_id = $_GET['route_id'];
 
-$routeData = routeHelper::getRouteByRouteID($route_id);
+$flightData = routeHelper::getRouteByRouteID($route_id);
 
-$pdf->Cell(0, 10, $routeData[0]['title'], 0, 1, 'C');
+$pdf->Cell(0, 10, $flightData[0]['title'], 0, 1, 'C');
 
 $pdf->SetFont('Times', '', 12);
 

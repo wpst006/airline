@@ -5,7 +5,7 @@ if (isset($_POST['submitted'])) {
     $error = false;
     //*********************************************************************
     //Filling Data
-    $flight_id = autoID::getAutoID('customers', 'customer_id', 'CUS_', 6);
+    $seat_id = autoID::getAutoID('customers', 'customer_id', 'CUS_', 6);
     $username = $_POST['username'];
     $password = $_POST['password'];
     $email = $_POST['email'];
@@ -23,14 +23,14 @@ if (isset($_POST['submitted'])) {
     //"members" Table Insert
     $flight_sql = "INSERT INTO " .
             "customers(customer_id,firstname,lastname,gender,DOB,nrc_no,phone_no,street,city,country,post_code) " .
-            "VALUES('$flight_id','$firstname','$lastname','$gender','$DOB','$nrc_no','$phone_no','$street','$city','$country','$post_code')";
+            "VALUES('$seat_id','$firstname','$lastname','$gender','$DOB','$nrc_no','$phone_no','$street','$city','$country','$post_code')";
 
     mysql_query($flight_sql) or die(mysql_error());
     //*********************************************************************
     //User Table Insert
     $userInsert_sql = "INSERT INTO " .
             "`users`(user_id,username,email,password,role) " .
-            "VALUES('$flight_id','$username','$email','$password','member')";
+            "VALUES('$seat_id','$username','$email','$password','member')";
 
     mysql_query($userInsert_sql) or die(mysql_error());
     //*********************************************************************

@@ -57,7 +57,26 @@ class flightHelper {
         return $output;
     }
     
-    
+    public static function searchFlight($searchKey) {
+        $sql = "SELECT * " .
+                "FROM flights " .
+                "WHERE name LIKE '%" . $searchKey . "%' " .
+                "ORDER BY name";
+
+        $result = mysql_query($sql) or die(mysql_error());
+
+        $output=array();
+        
+        while ($row = mysql_fetch_array($result)) {
+            $output[]=array(
+                'flight_id'=>$row['flight_id'],
+                'name'=>$row['name'],
+                'remark'=>$row['remark']
+            );
+        }
+
+        return $output;
+    }
 
 }
 ?>

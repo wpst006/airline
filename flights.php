@@ -5,9 +5,9 @@ if (isset($_POST['submitted'])) {
     //*********************************************************************
     //Filling Data
     if (isset($_POST['flight_id'])) {
-        $flight_id = $_POST['flight_id'];
+        $seat_id = $_POST['flight_id'];
     } else {
-        $flight_id = autoID::getAutoID('flights', 'flight_id', 'FLH_', 6);
+        $seat_id = autoID::getAutoID('flights', 'flight_id', 'FLH_', 6);
     }
     $title = $_POST['name'];
     $remark = $_POST['remark'];
@@ -18,32 +18,32 @@ if (isset($_POST['submitted'])) {
                 "flights SET " .
                 "name='" . $title . "'," .
                 "remark='" . $remark . "' " .
-                "WHERE flight_id='" . $flight_id . "'";
+                "WHERE flight_id='" . $seat_id . "'";
     } else {
         //"flights" Table Insert
         $flight_sql = "INSERT INTO " .
                 "flights(flight_id,name,remark) " .
-                "VALUES('$flight_id','$title','$remark')";
+                "VALUES('$seat_id','$title','$remark')";
     }
 
     mysql_query($flight_sql) or die(mysql_error());
     //*********************************************************************    
     messageHelper::setMessage("You have successfully save flight.", MESSAGE_TYPE_SUCCESS);
-    header("Location:flights.php");
+    header("Location:flight-display.php");
     exit();
 }
 
-$flight_id = null;
+$seat_id = null;
 $title = "";
 $remark = "";
 
 
 if (isset($_GET['flight_id'])) {
-    $flight_id = $_GET['flight_id'];
+    $seat_id = $_GET['flight_id'];
 
     if (isset($_GET['action'])) {
         if ($_GET['action'] == 'delete') {
-            $flight_sql = "DELETE FROM flights WHERE flight_id='" . $flight_id . "'";
+            $flight_sql = "DELETE FROM flights WHERE flight_id='" . $seat_id . "'";
         }
 
         mysql_query($flight_sql) or die(mysql_error());
@@ -53,9 +53,9 @@ if (isset($_GET['flight_id'])) {
         exit();
     }
 
-    $routeData = flightHelper::getFlightByFligthID($flight_id);
-    $title = $routeData[0]['name'];
-    $remark = $routeData[0]['remark'];
+    $flightData = flightHelper::getFlightByFligthID($seat_id);
+    $title = $flightData[0]['name'];
+    $remark = $flightData[0]['remark'];
 }
 ?>
 
@@ -67,8 +67,8 @@ if (isset($_GET['flight_id'])) {
     <div class="col-md-12">
         <form role="form" id="flights" name="flights" action="flights.php" method="post" class="form-horizontal">
 
-            <?php if (isset($flight_id)) { ?>
-                <input type="hidden" id="flight_id" name="flight_id" value="<?php echo $flight_id; ?>" />
+            <?php if (isset($seat_id)) { ?>
+                <input type="hidden" id="flight_id" name="flight_id" value="<?php echo $seat_id; ?>" />
             <?php } ?>
 
             <div class="form-group">
@@ -94,8 +94,6 @@ if (isset($_GET['flight_id'])) {
         </form>
     </div>
 </div>
-
-<?php include('includes/flight-display.php'); ?>
 
 <script type="text/javascript">
     $("#flights").validate({

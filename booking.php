@@ -1,4 +1,5 @@
 <?php include('includes/includefiles.php'); ?>
+<?php include('includes/routeHelper.php'); ?>
 
 <?php $pageTitle = "Booking"; ?>
 <?php include('includes/header.php'); ?>
@@ -13,10 +14,17 @@
     }
 </style>
 
-<?php if (isset($_GET['route_id_main'])) { ?>
-    <div id="selected_route_id" style="display:none;"><?php echo $_GET['route_id_main']; ?></div>
-<?php } ?>
+<?php
+if (isset($_GET['route_id_main'])) {
+    $route_id_main = $_GET['route_id_main'];
+} else {
+    $route_id_main = routeHelper::getFirstRouteID();
+}
+?>
 
+<div id="selected_route_id" style="display:none;"><?php echo $route_id_main; ?></div>
+
+<?php $route_id_main = routeHelper::getFirstRouteID(); ?>
 <div class="row">
     <div class="col-md-12">
         <form role="form" id="booking" name="booking" action="booking.php" method="get" class="form-horizontal">                     
@@ -39,7 +47,7 @@
             <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-10 text-right">                    
                     <button type="submit" name="submitted" id="btn-search" class="btn btn-default btn-primary my-btn">Search</button>
-                    <a href="print_bookingAvailableByRouteID.php?route_id=<?php echo $_GET['route_id_main']; ?>" class="btn btn-default btn-info my-btn">Print</a>
+                    <a href="print_bookingAvailableByRouteID.php?route_id=<?php echo $route_id_main; ?>" class="btn btn-default btn-info my-btn">Print</a>
                 </div>                            
             </div>
         </form>
@@ -51,7 +59,7 @@
         <?php
         $_GET['mode'] = 'booking';
         ?>        
-<?php include('includes/flight-schedules.php'); ?>
+        <?php include('includes/flight-schedules.php'); ?>
     </div>
 </div>
 

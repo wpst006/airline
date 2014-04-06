@@ -33,7 +33,7 @@ if (isset($_POST['submitted'])) {
     mysql_query($flight_sql) or die(mysql_error());
     //*********************************************************************    
     messageHelper::setMessage("You have successfully save Route.", MESSAGE_TYPE_SUCCESS);
-    header("Location:routes.php");
+    header("Location:route-display.php");
     exit();
 }
 
@@ -58,11 +58,11 @@ if (isset($_GET['route_id'])) {
         exit();
     }
 
-    $routeData = routeHelper::getRouteByRouteID($route_id);
-    $title = $routeData[0]['title'];
-    $hour = $routeData[0]['hour'];
-    $min = $routeData[0]['min'];
-    $remark = $routeData[0]['remark'];
+    $flightData = routeHelper::getRouteByRouteID($route_id);
+    $title = $flightData[0]['title'];
+    $hour = $flightData[0]['hour'];
+    $min = $flightData[0]['min'];
+    $remark = $flightData[0]['remark'];
 }
 ?>
 
@@ -119,8 +119,6 @@ if (isset($_GET['route_id'])) {
         </form>
     </div>
 </div>
-
-<?php include('includes/route-display.php'); ?>
 
 <script type="text/javascript">
     $(document).ready(function(){

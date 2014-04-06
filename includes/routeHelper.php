@@ -63,6 +63,29 @@ class routeHelper {
         return $output;
     }
 
+    public static function searchRoute($searchKey) {
+        $sql = "SELECT * " .
+                "FROM routes " .
+                "WHERE title LIKE '%" . $searchKey . "%' " .
+                "ORDER BY title";
+
+        $result = mysql_query($sql) or die(mysql_error());
+
+        $output=array();
+        
+        while ($row = mysql_fetch_array($result)) {
+            $output[] = array(
+                'route_id' => $row['route_id'],
+                'title' => $row['title'],
+                'hour' => $row['hour'],
+                'min' => $row['min'],
+                'remark'=> $row['remark']
+            );
+        }
+
+        return $output;
+    }
+    
     public static function getFirstRouteID() {
         $route_id = null;
 

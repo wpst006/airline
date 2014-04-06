@@ -4,7 +4,7 @@
 if (isset($_POST['submitted'])) {
 //*********************************************************************
     //Filling Data
-    $flight_id = autoID::getAutoID('seats', 'seat_id', 'SET_', 6);
+    $seat_id = autoID::getAutoID('seats', 'seat_id', 'SET_', 6);
     $schedule_id = $_POST['schedule_id'];
     $seattype_id = $_POST['seattype_id'];
     $no_of_seat = $_POST['no_of_seat'];
@@ -15,7 +15,7 @@ if (isset($_POST['submitted'])) {
     if ($seatExists == true) {
         updateSeats($schedule_id, $seattype_id, $no_of_seat, $price);
     } else {
-        saveSeats($flight_id, $schedule_id, $seattype_id, $no_of_seat, $price);
+        saveSeats($seat_id, $schedule_id, $seattype_id, $no_of_seat, $price);
     }
     //*********************************************************************
     messageHelper::setMessage("You have successfully save the Seat Type.", MESSAGE_TYPE_SUCCESS);

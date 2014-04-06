@@ -13,7 +13,7 @@ if (isset($_POST['submitted'])) {
         $schedule_id = autoID::getAutoID('schedules', 'schedule_id', 'SCH_', 6);
     }
 
-    $flight_id = $_POST['flight_id'];
+    $seat_id = $_POST['flight_id'];
     $route_id = $_POST['route_id'];
     $departure_datetime = $_POST['departure_datetime'];
     $arrival_datetime = $_POST['arrival_datetime'];
@@ -38,7 +38,7 @@ if (isset($_POST['submitted'])) {
         //"schedules" Table Insert
         $schedule_sql = "INSERT INTO " .
                 "schedules(schedule_id,flight_id,route_id,departure_datetime,arrival_datetime,departure_airport,arrival_airport,active,remark) " .
-                "VALUES('$schedule_id','$flight_id','$route_id','$departure_datetime_string','$arrival_datetime_string','$departure_airport','$arrival_airport',1,'$remark')";
+                "VALUES('$schedule_id','$seat_id','$route_id','$departure_datetime_string','$arrival_datetime_string','$departure_airport','$arrival_airport',1,'$remark')";
     }
 
     mysql_query($schedule_sql) or die(mysql_error());
@@ -61,7 +61,7 @@ if (isset($_POST['submitted'])) {
         $scheduleData = scheduleHelper::getScheduleByScheduleID($schedule_id);
 
         //var_dump($scheduleData);exit();
-        $flight_id = $scheduleData[0]['flight_id'];
+        $seat_id = $scheduleData[0]['flight_id'];
         $route_id = $scheduleData[0]['route_id'];
         $departure_datetime = $scheduleData[0]['departure_datetime'];
         $arrival_datetime = $scheduleData[0]['arrival_datetime'];
@@ -69,7 +69,7 @@ if (isset($_POST['submitted'])) {
         $arrival_airport = $scheduleData[0]['arrival_airport'];
         $remark = $scheduleData[0]['remark'];
     } else {
-        $flight_id = $_GET['flight_id'];
+        $seat_id = $_GET['flight_id'];
         $route_id = $_GET['route_id'];
     }
 }
@@ -90,8 +90,8 @@ if (isset($_POST['submitted'])) {
             <div class="form-group">
                 <label class="col-sm-3 control-label">Flight :</label>
                 <div class="col-sm-9">
-                    <p class="form-control-static"><?php echo flightHelper::getFlightNameByFligthID($flight_id); ?></p>
-                    <input type="hidden" id="flight_id" name="flight_id" value="<?php echo $flight_id; ?>" />
+                    <p class="form-control-static"><?php echo flightHelper::getFlightNameByFligthID($seat_id); ?></p>
+                    <input type="hidden" id="flight_id" name="flight_id" value="<?php echo $seat_id; ?>" />
                 </div>                            
             </div>
 

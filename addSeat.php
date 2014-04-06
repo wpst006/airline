@@ -13,12 +13,12 @@ $objShoppingCart = new ShoppingCart();
 //var_dump($objShoppingCart->getShoppingCart());
 if ($action == 'add2cart') {
     $schedule_id = $_GET['schedule_id'];
-    $flight_id = $_GET['seat_id'];
+    $seat_id = $_GET['seat_id'];
     $seattype_id = $_GET['seattype_id'];
     $seat_type = $_GET['seat_type'];
     $price = $_GET['price'];
 
-    if ($objShoppingCart->insert($schedule_id, $flight_id, $seattype_id, $seat_type, $price) == 1) {
+    if ($objShoppingCart->insert($schedule_id, $seat_id, $seattype_id, $seat_type, $price) == 1) {
         messageHelper::setMessage('Seat is successfully added to the booking.', MESSAGE_TYPE_SUCCESS);
     } else {
         messageHelper::setMessage('Error occured while adding seat to the booking.', MESSAGE_TYPE_ERROR);
@@ -31,8 +31,8 @@ if ($action == 'clear') {
 }
 
 if ($action == 'remove') {
-    $flight_id = $_GET['seat_id'];
-    $objShoppingCart->remove($flight_id);
+    $seat_id = $_GET['seat_id'];
+    $objShoppingCart->remove($seat_id);
     messageHelper::setMessage('Seat is successfully removed from the booking.', MESSAGE_TYPE_INFO);
 }
 ?>
@@ -48,7 +48,7 @@ if ($action == 'remove') {
 <div class="row">
     <div class="col-md-12 text-right">
         <a href="booking.php" class="btn btn-warning">Go to Booking Page</a>
-        <a href="checkout.php" class="btn btn-primary">Check Out</a>
+        <a href="pre-checkout.php" class="btn btn-primary">Check Out</a>
         <a href="addSeat.php?action=clear" class="btn btn-danger">Clear</a>
     </div>
 </div>
@@ -64,6 +64,7 @@ if ($action == 'remove') {
         <table id="seat_table">
             <thead>
                 <tr>
+                    <th class="title-column">Seat ID</th>
                     <th class="title-column">Route</th>
                     <th class="artist-column">Departure Date Time</th>
                     <th class="price-column">Arrival Date Time</th>                   
@@ -76,6 +77,7 @@ if ($action == 'remove') {
             <tbody>
                 <?php foreach ($objShoppingCart->getShoppingCart() as $row) { ?>
                     <tr id="<?php echo $row['seat_id']; ?>">
+                        <td class="title-column"><?php echo $row['seat_id']; ?></td>
                         <td class="title-column"><?php echo $row['route_title']; ?></td>
                         <td class="artist-column"><?php echo $row['departure_datetime']; ?></td>
                         <td class="price-column"><?php echo $row['arrival_datetime']; ?></td>                              

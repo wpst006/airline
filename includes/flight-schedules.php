@@ -26,7 +26,7 @@ if (isset($_GET['route_id_main'])) {
     $route_id = routeHelper::getFirstRouteID();
 }
 
-$routeData = routeHelper::getRouteByRouteID($route_id);
+$flightData = routeHelper::getRouteByRouteID($route_id);
 
 if (!isset($route_id)) {
     exit();
@@ -142,7 +142,7 @@ if ($noOfRows == 0) {
                             "&flight_id=" . $flightRow['flight_id'];
                     ?>
                     <a href="<?php echo $addScheduleLink; ?>" class="btn btn-success btn-add-schedule pull-right">
-                        Add Schedule --> <?php echo $routeData[0]['title'] . ' --> ' . $flightRow['name']; ?>
+                        Add Schedule --> <?php echo $flightData[0]['title'] . ' --> ' . $flightRow['name']; ?>
                     </a>
                 <?php } ?>
             </div>

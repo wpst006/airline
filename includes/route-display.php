@@ -13,9 +13,9 @@
             </thead>
             <tbody>
                 <?php
-                $routeData= routeHelper::selectAll();
+                $flightData= routeHelper::selectAll();
                 ?>
-                <?php foreach ($routeData as $row) { ?>
+                <?php foreach ($flightData as $row) { ?>
                     <tr>
                         <td><?php echo $row['title']; ?></td>                        
                         <td><?php echo $row['hour'] . ":" . $row['min']; ?></td>   

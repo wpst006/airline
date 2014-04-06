@@ -2,7 +2,7 @@
 
 require('includes/includefiles.php');
 require('myPDF.php');
-require('includes/routeHelper.php');
+require('includes/flightHelper.php');
 
 class routePDF extends myPDF {
 
@@ -10,16 +10,14 @@ class routePDF extends myPDF {
     function BasicTable($header, $data) {
         $this->SetFont('Times', 'B', 12);
         // Header
-        $this->Cell(75, 7, 'Title', 1);
-        $this->Cell(25, 7, 'Duration', 1);
-        $this->Cell(75, 7, 'Remark', 1);
+        $this->Cell(75, 7, 'Flight ID', 1);
+        $this->Cell(75, 7, 'Name', 1);
         $this->Ln();
         // Data        
         foreach ($data as $row) {
             $this->SetFont('Times', '', 12);
-            $this->Cell(75, 7, $row['title'], 1);
-            $this->Cell(25, 7, $row['duration'], 1);
-            $this->Cell(75, 7, $row['remark'], 1);
+            $this->Cell(75, 7, $row['flight_id'], 1);
+            $this->Cell(75, 7, $row['name'], 1);
             $this->Ln();
         }
     }
@@ -31,14 +29,14 @@ $pdf = new routePDF("L");
 $pdf->AliasNbPages();
 $pdf->AddPage();
 $pdf->SetFont('Times', 'B', 16);
-$pdf->Cell(0, 10, 'Routes Report', 0, 1, 'C');
+$pdf->Cell(0, 10, 'Flight Report', 0, 1, 'C');
 
 $pdf->SetFont('Times', '', 12);
 //***************************************************************************************************************
 if (isset($_GET['searchKey'])){
-    $flightData=  routeHelper::searchRoute($_GET['searchKey']);
+    $flightData= flightHelper::searchFlight($_GET['searchKey']);
 }else{
-    $flightData= routeHelper::selectAll();
+    $flightData= flightHelper::selectAll();
 }
 //***************************************************************************************************************
 
@@ -46,9 +44,8 @@ if (isset($_GET['searchKey'])){
 $header = array('Title','Duration','Remark');
 
 foreach ($flightData as $key => $value) {
-    $data[] = array('title'=>$value['title'],
-        'duration'=>$value['hour'] . ':' . $value['min'],
-        'remark'=>$value['remark']);
+    $data[] = array('flight_id'=>$value['flight_id'],        
+        'name'=>$value['name']);
 }
 
 $pdf->BasicTable($header, $data);

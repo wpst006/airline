@@ -1,4 +1,5 @@
 <?php include('includes/includefiles.php'); ?>
+<?php require_once('includes/seatHelper.php'); ?>
 <?php
 $objShoppingCart = new ShoppingCart();
 $shoppingCartData = $objShoppingCart->getShoppingCart();
@@ -26,21 +27,22 @@ if (isset($_POST['submitted'])) {
     //******************************************************************************************************************************************
     //"bookings" Table Insert
     $bookingInsert_sql = "INSERT INTO " .
-            "bookings(booking_id,bookingdate,customer_Id,total,status) " .
+            "bookings(booking_id,bookingdate,customer_id,total,status) " .
             "VALUES('$booking_id','" . date('Y-m-d H:i:s') . "','$customer_id',$total,1)";
 
     mysql_query($bookingInsert_sql) or die(mysql_error());
     //******************************************************************************************************************************************
     foreach ($shoppingCartData as $index=>$shoppingCartItem){
-        $flight_id=$shoppingCartItem['seat_id'];
+        $seat_id=$shoppingCartItem['seat_id'];
         $no_of_seat_to_book=$shoppingCartItem['no_of_seat_to_book'];
         $price=$shoppingCartItem['price'];
 
         $bookingDetailInsert_sql = "INSERT INTO " .
             "bookingdetails(booking_id,seat_id,no_of_seats,price) " .
-            "VALUES('$booking_id','$flight_id',$no_of_seat_to_book,$price)";
+            "VALUES('$booking_id','$seat_id',$no_of_seat_to_book,$price)";
 
         mysql_query($bookingDetailInsert_sql) or die(mysql_error());
+        seatHelper::updateBookedSeat($seat_id, $no_of_seat_to_book);
     }
     //******************************************************************************************************************************************
     //Clearing "Shopping Cart"
