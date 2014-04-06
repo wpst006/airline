@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Apr 06, 2014 at 12:32 PM
+-- Generation Time: Apr 06, 2014 at 01:04 PM
 -- Server version: 5.5.24-log
 -- PHP Version: 5.3.13
 
@@ -118,9 +118,10 @@ CREATE TABLE IF NOT EXISTS `customers` (
 --
 
 INSERT INTO `customers` (`customer_id`, `firstname`, `lastname`, `gender`, `DOB`, `nrc_no`, `phone_no`, `street`, `city`, `country`, `post_code`) VALUES
-('CUS_000002', 'a', 'a', 'M', '1990-01-02 00:00:00', 'a', 'a', 'a', 'a', 'a', 'a'),
+('CUS_000002', 'aaa', 'bbb', 'M', '1990-01-02 00:00:00', 'a', 'a', 'a', 'a', 'a', 'a'),
 ('CUS_000003', 'b', 'b', 'M', '2014-03-08 00:00:00', 'b', 'b', 'b', 'b', 'b', 'b'),
-('CUS_000004', 'c', 'c', 'M', '2014-03-22 00:00:00', 'c', 'c', 'c', 'c', 'c', 'c');
+('CUS_000004', 'c', 'c', 'M', '2014-03-22 00:00:00', 'c', 'c', 'c', 'c', 'c', 'c'),
+('CUS_000005', 'd', 'd', 'F', '2014-04-06 00:00:00', 'd', 'd', 'd', 'd', 'd', 'd');
 
 -- --------------------------------------------------------
 
@@ -311,7 +312,8 @@ INSERT INTO `users` (`user_id`, `username`, `email`, `password`, `role`) VALUES
 ('CUS_000001', 'admin', 'admin@gmail.com', 'admin', 'admin'),
 ('CUS_000002', 'a', 'a@gmail.com', 'a', 'member'),
 ('CUS_000003', 'b', 'b@gmail.com', 'b', 'member'),
-('CUS_000004', 'c', 'c@gmail.com', 'c', 'member');
+('CUS_000004', 'c', 'c@gmail.com', 'c', 'member'),
+('CUS_000005', 'd', 'd@gmail.com', 'd', 'customer');
 
 -- --------------------------------------------------------
 

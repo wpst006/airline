@@ -31,7 +31,7 @@ class logIn {
     }
 
     function isMemberLogIn() {
-        return $this->isLoggedIn("member");
+        return $this->isLoggedIn("customer");
     }
 
     function isLoggedIn($role=null) {

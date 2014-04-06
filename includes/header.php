@@ -42,6 +42,7 @@
                                     <?php } else { ?>
                                         <li><a href="logout.php">Log Out</a></li>
                                     <?php } ?>
+                                    <?php $objLogIn=new logIn();?>
                                     <?php if ($objLogIn->isMemberLogIn() == true) { ?>
                                         <li><a href="addSeat.php">Booking Summary</a></li>
                                     <?php } ?>
@@ -58,7 +59,11 @@
                         
                         if (isset($logInData)){ ?>
                         <div class="loggedin-info">                            
-                            <p><?php echo $logInData['username'] . " (" . $logInData['role'] . ")";?></p>
+                            <p>
+                                <a href="register.php?customer_id=<?php echo $logInData['user_id'];?>">
+                                    <?php echo $logInData['username'] . " (" . $logInData['role'] . ")";?>
+                                </a>
+                            </p>
                         </div>
                         <?php } ?>
                     </div>
